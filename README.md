@@ -1,8 +1,8 @@
 # TryHackMe
 TryHackMe CTFs write-ups
-<img src="https://tryhackme-badges.s3.amazonaws.com/Juba0x430x55.png" alt="TryHackMe Badge" hight=200 width=600>
+<!-- <img src="https://tryhackme-badges.s3.amazonaws.com/Juba0x430x55.png" alt="TryHackMe Badge" hight=200 width=600> -->
 
-
+![Profile Badge](images/Profile.png)
 <!-- <script src="https://tryhackme.com/badge/724560"></script> -->
  
 - [Linkedin](https://www.linkedin.com/in/juba0x00/)
