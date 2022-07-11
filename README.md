@@ -1,11 +1,10 @@
 # TryHackMe
 TryHackMe CTFs write-ups
+<img src="https://tryhackme-badges.s3.amazonaws.com/Juba0x430x55.png" alt="TryHackMe Badge" hight=200 width=600>
 
 
 <!-- <script src="https://tryhackme.com/badge/724560"></script> -->
-<!-- <img src="https://tryhackme-badges.s3.amazonaws.com/Juba0x430x55.png" alt="TryHackMe" hight=200 width=500> -->
-![Profile Badge](images/Profile.png)
-
+ 
 - [Linkedin](https://www.linkedin.com/in/juba0x00/)
 - [Twitter](https://twitter.com/juba0x00/)
 - [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
