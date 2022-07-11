@@ -9,6 +9,7 @@ TryHackMe CTFs write-ups
 - [Twitter](https://twitter.com/juba0x00/)
 - [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
 
+
 # Write-ups 
 ## [LinuxAgency](Linux-Agency/README.md)  
 ## [Wonderland](Wonderland/README.md)  
@@ -32,6 +33,7 @@ TryHackMe CTFs write-ups
 ### [30 Day Streak](https://tryhackme.com/Juba0x430x55/badges/30-day-streak)  
 ### [7 Day Streak](https://tryhackme.com/Juba0x430x55/badges/7-day-streak)  
 ### [Metasploitable](https://tryhackme.com/Juba0x430x55/badges/metasploitable)  
+### [Security Awareness](https://tryhackme.com/Juba0x430x55/badges/security-awareness)
 ### [Intro to Web Hacking](https://tryhackme.com/Juba0x430x55/badges/intro-to-web-hacking)  
 ### [Webbed](https://tryhackme.com/Juba0x430x55/badges/web-fund)  
 ### [World Wide Web](https://tryhackme.com/Juba0x430x55/badges/world-wide-web)  
