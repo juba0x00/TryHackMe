@@ -1,70 +1,67 @@
-# Linux Agency
----
+# Linux-Agency
 
-# Info
+## Linux Agency
 
-| Name        |    Linux Agency     | 
-| ------      | ----------------- |
-| Room link   |         https://tryhackme.com/room/linuxagency                                              |  
-| Difficulty  |         Medium                                                                              |
-| Created by  |         [Xyan1d3](https://tryhackme.com/p/Xyan1d3)  [0z09e](https://tryhackme.com/p/0z09e)  |
-|solving date |         June 9th     2022                                                                   |
+***
 
+## Info
 
+| Name         | Linux Agency                                                                      |
+| ------------ | --------------------------------------------------------------------------------- |
+| Room link    | https://tryhackme.com/room/linuxagency                                            |
+| Difficulty   | Medium                                                                            |
+| Created by   | [Xyan1d3](https://tryhackme.com/p/Xyan1d3) [0z09e](https://tryhackme.com/p/0z09e) |
+| solving date | June 9th 2022                                                                     |
 
+* **Table Of Contents:**
+  * **Task 3-Linux Fundamentals**
+    * [Mission 1](./#user-content-mission1)
+    * [Mission 2](./#user-content-mission2)
+    * [Mission 3](./#user-content-mission3)
+    * [Mission 4](./#user-content-mission4)
+    * [Mission 5](./#user-content-mission5)
+    * [Mission 6](./#user-content-mission6)
+    * [Mission 7](./#user-content-mission7)
+    * [Mission 8](./#user-content-mission8)
+    * [Mission 9](./#user-content-mission9)
+    * [Mission 10](./#user-content-mission10)
+    * [Mission 11](./#user-content-mission11)
+    * [Mission 12](./#user-content-mission12)
+    * [Mission 13](./#user-content-mission13)
+    * [Mission 14](./#user-content-mission14)
+    * [Mission 15](./#user-content-mission15)
+    * [Mission 16](./#user-content-mission16)
+    * [Mission 17](./#user-content-mission17)
+    * [Mission 18](./#user-content-mission18)
+    * [Mission 19](./#user-content-mission19)
+    * [Mission 20](./#user-content-mission20)
+    * [Mission 21](./#user-content-mission21)
+    * [Mission 22](./#user-content-mission22)
+    * [Mission 23](./#user-content-mission23)
+    * [Mission 24](./#user-content-mission24)
+    * [Mission 25](./#user-content-mission25)
+    * [Mission 26](./#user-content-mission26)
+    * [Mission 27](./#user-content-mission27)
+    * [Mission 28](./#user-content-mission28)
+    * [Mission 29](./#user-content-mission29)
+    * [Mission 30](./#user-content-mission30)
+    * [Viktor’s flag](./#user-content-viktor)
+  * **Task 4 - Privilege Escalation**
+    * [Dalia’s flag](./#user-content-dalia)
+    * [silvio’s flag](./#user-content-silvio)
+    * [reza’s flag](./#user-content-reza)
+    * [jordan’s flag](./#user-content-jordan)
+    * [ken’s flag](./#user-content-ken)
+    * [sean’s flag](./#user-content-sean)
+    * [penelope’s flag](./#user-content-penelope)
+    * [maya’s flag](./#user-content-maya)
+    * [robert’s flag](./#user-content-robert)
+    * [user.txt](./#user-content-user.txt)
+    * [root.txt](./#user-content-root.txt)
 
+## Task 3-Linux Fundamentals
 
-
-
-- **Table Of Contents:**
-    - **Task 3-Linux Fundamentals**
-        - [Mission 1](#user-content-mission1)
-        - [Mission 2](#user-content-mission2)
-        - [Mission 3](#user-content-mission3)
-        - [Mission 4](#user-content-mission4)
-        - [Mission 5](#user-content-mission5)
-        - [Mission 6](#user-content-mission6)
-        - [Mission 7](#user-content-mission7)
-        - [Mission 8](#user-content-mission8)
-        - [Mission 9](#user-content-mission9)
-        - [Mission 10](#user-content-mission10)
-        - [Mission 11](#user-content-mission11)
-        - [Mission 12](#user-content-mission12)
-        - [Mission 13](#user-content-mission13)
-        - [Mission 14](#user-content-mission14)
-        - [Mission 15](#user-content-mission15)
-        - [Mission 16](#user-content-mission16)
-        - [Mission 17](#user-content-mission17)
-        - [Mission 18](#user-content-mission18)
-        - [Mission 19](#user-content-mission19)
-        - [Mission 20](#user-content-mission20)
-        - [Mission 21](#user-content-mission21)
-        - [Mission 22](#user-content-mission22)
-        - [Mission 23](#user-content-mission23)
-        - [Mission 24](#user-content-mission24)
-        - [Mission 25](#user-content-mission25)
-        - [Mission 26](#user-content-mission26)
-        - [Mission 27](#user-content-mission27)
-        - [Mission 28](#user-content-mission28)
-        - [Mission 29](#user-content-mission29)
-        - [Mission 30](#user-content-mission30)
-        - [Viktor’s flag](#user-content-viktor)
-    - **Task 4 - Privilege Escalation**
-        - [Dalia’s flag](#user-content-dalia)
-        - [silvio’s flag](#user-content-silvio)
-        - [reza’s flag](#user-content-reza)
-        - [jordan’s flag](#user-content-jordan)
-        - [ken’s flag](#user-content-ken)
-        - [sean’s flag](#user-content-sean)
-        - [penelope’s flag](#user-content-penelope)
-        - [maya’s flag](#user-content-maya)
-        - [robert’s flag](#user-content-robert)
-        - [user.txt](#user-content-user.txt)
-        - [root.txt](#user-content-root.txt)
-
-# Task 3-Linux Fundamentals
-
-## Mission 1 <a name="mission1"></a>
+### Mission 1 <a href="#mission1" id="mission1"></a>
 
 ```bash
 ssh agent47@10.10.12.15
@@ -85,18 +82,18 @@ Welcome to Ubuntu 18.04 LTS (GNU/Linux 4.15.0-20-generic x86_64)
 **mission1{174d****************************}**
 ```
 
-- we can see the first flag inside the banner, we can find it in `~/.ssh/rc`
+* we can see the first flag inside the banner, we can find it in `~/.ssh/rc`
 
 ```bash
 agent47@linuxagency:~$ cat .ssh/rc
 **echo "mission1{174d****************************}"**
 ```
 
----
+***
 
-## Mission 2 <a name="mission2"></a>
+### Mission 2 <a href="#mission2" id="mission2"></a>
 
-- the password for mission1 user  is the previous flag
+* the password for mission1 user is the previous flag
 
 ```bash
 agent47@linuxagency:~$ su mission1
@@ -107,9 +104,9 @@ mission2{8a1b****************************}
 mission1@linuxagency:~$
 ```
 
----
+***
 
-## Mission 3 <a name="mission3"></a>
+### Mission 3 <a href="#mission3" id="mission3"></a>
 
 ```bash
 mission2@linuxagency:/home/mission1$ cd
@@ -119,9 +116,9 @@ mission2@linuxagency:~$ cat flag.txt
 mission3{ab1e****************************}
 ```
 
----
+***
 
-## Mission 4 <a name="mission4"></a>
+### Mission 4 <a href="#mission4" id="mission4"></a>
 
 ```bash
 mission2@linuxagency:~$ su mission3
@@ -133,7 +130,7 @@ mission3@linuxagency:~$ cat flag.txt
 I am really sorry man the flag is stolen by some thief's.
 ```
 
-- I transferred the flag to my machine to use `hexeditor`, but we can use `xxd`, instead
+* I transferred the flag to my machine to use `hexeditor`, but we can use `xxd`, instead
 
 ![Untitled](images/Untitled.png)
 
@@ -149,9 +146,9 @@ mission3@linuxagency:~$ xxd flag.txt
 mission3@linuxagency:~$
 ```
 
----
+***
 
-## Mission 5 <a name="mission5"></a>
+### Mission 5 <a href="#mission5" id="mission5"></a>
 
 ```bash
 mission3@linuxagency:~$ su mission4 
@@ -167,204 +164,202 @@ mission5{bc67****************************}
 mission4@linuxagency:~/flag$
 ```
 
----
+***
 
-## Mission 6 <a name="mission6"></a>
+### Mission 6 <a href="#mission6" id="mission6"></a>
 
-![Untitled](images/Untitled%201.png)
+![Untitled](<images/Untitled 1.png>)
 
----
+***
 
-## Mission 7 <a name="mission7"></a>
+### Mission 7 <a href="#mission7" id="mission7"></a>
 
-![Untitled](images/Untitled%202.png)
+![Untitled](<images/Untitled 2.png>)
 
----
+***
 
-## Mission 8 <a name="mission8"></a>
+### Mission 8 <a href="#mission8" id="mission8"></a>
 
-![Untitled](images/Untitled%203.png)
+![Untitled](<images/Untitled 3.png>)
 
----
+***
 
-## Mission 9  <a name="mission9"></a>
+### Mission 9 <a href="#mission9" id="mission9"></a>
 
-![Untitled](images/Untitled%204.png)
+![Untitled](<images/Untitled 4.png>)
 
----
+***
 
-## Mission 10 <a name="mission10"></a>
+### Mission 10 <a href="#mission10" id="mission10"></a>
 
-![Untitled](images/Untitled%205.png)
+![Untitled](<images/Untitled 5.png>)
 
-- it’s rockyou.txt wordlist, don’t `cat` it , it will explode into your terminal 😅, use grep to cut down the output
-    
-    ![Untitled](images/Untitled%206.png)
-    
+*   it’s rockyou.txt wordlist, don’t `cat` it , it will explode into your terminal 😅, use grep to cut down the output
 
----
+    <img src="images/Untitled 6.png" alt="Untitled" data-size="original">
 
-## Mission 11 <a name="mission11"></a>
+***
 
-![Untitled](images/Untitled%207.png)
+### Mission 11 <a href="#mission11" id="mission11"></a>
 
----
+![Untitled](<images/Untitled 7.png>)
 
-## Mission 12 <a name="mission12"></a>
+***
 
-![Untitled](images/Untitled%208.png)
+### Mission 12 <a href="#mission12" id="mission12"></a>
 
-- first, we didn’t find anything inside mission11’s home so I searched for flag.txt but we didn’t find mission12s’ flag so we checked my Environment Variables (`env`), you also can echo the flag
-    
-    ![Untitled](images/Untitled%209.png)
-    
+![Untitled](<images/Untitled 8.png>)
 
----
+*   first, we didn’t find anything inside mission11’s home so I searched for flag.txt but we didn’t find mission12s’ flag so we checked my Environment Variables (`env`), you also can echo the flag
 
-## Mission 13 <a name="mission13"></a>
+    <img src="images/Untitled 9.png" alt="Untitled" data-size="original">
 
-![Untitled](images/Untitled%2010.png)
+***
 
-- It’s simple: the flag.txt has no read permission so we changed the permissions to allow reading it
+### Mission 13 <a href="#mission13" id="mission13"></a>
 
----
+![Untitled](<images/Untitled 10.png>)
 
-## Mission 14 <a name="mission14"></a>
+* It’s simple: the flag.txt has no read permission so we changed the permissions to allow reading it
 
-![Untitled](images/Untitled%2011.png)
+***
 
-- decode flag.txt content to get the flag
+### Mission 14 <a href="#mission14" id="mission14"></a>
 
----
+![Untitled](<images/Untitled 11.png>)
 
-## Mission 15 <a name="mission15"></a>
+* decode flag.txt content to get the flag
 
-![Untitled](images/Untitled%2012.png)
+***
 
-- it’s binary, we need to convert it into ASCII text
+### Mission 15 <a href="#mission15" id="mission15"></a>
 
-![Untitled](images/Untitled%2013.png)
+![Untitled](<images/Untitled 12.png>)
 
-- Just hit the magic stick
+* it’s binary, we need to convert it into ASCII text
 
-![Untitled](images/Untitled%2014.png)
+![Untitled](<images/Untitled 13.png>)
 
----
+* Just hit the magic stick
 
-## Mission 16 <a name="mission16"></a>
+![Untitled](<images/Untitled 14.png>)
 
-Just like the previous mission, we found hexadecimal encoded and tried to decode it 
+***
 
-![Untitled](images/Untitled%2015.png)
+### Mission 16 <a href="#mission16" id="mission16"></a>
 
----
+Just like the previous mission, we found hexadecimal encoded and tried to decode it
 
-## Mission 17 <a name="mission17"></a>
+![Untitled](<images/Untitled 15.png>)
 
-- flag file is ELF binary, I thought that the flag inside it so I used `strings` to print any printable characters but I didn’t find any interesting thing, so I changed the permissions to allow running it and run it to get the flag
+***
 
-![Untitled](images/Untitled%2016.png)
+### Mission 17 <a href="#mission17" id="mission17"></a>
 
-![Untitled](images/Untitled%2017.png)
+* flag file is ELF binary, I thought that the flag inside it so I used `strings` to print any printable characters but I didn’t find any interesting thing, so I changed the permissions to allow running it and run it to get the flag
 
----
+![Untitled](<images/Untitled 16.png>)
 
-## Mission 18 <a name="mission18"></a>
+![Untitled](<images/Untitled 17.png>)
 
-![Untitled](images/Untitled%2018.png)
+***
 
----
+### Mission 18 <a href="#mission18" id="mission18"></a>
 
-## Mission 19 <a name="mission19"></a>
+![Untitled](<images/Untitled 18.png>)
 
-![Untitled](images/Untitled%2019.png)
+***
 
----
+### Mission 19 <a href="#mission19" id="mission19"></a>
 
-## Mission 20 <a name="mission20"></a>
+![Untitled](<images/Untitled 19.png>)
 
-![Untitled](images/Untitled%2020.png)
+***
 
----
+### Mission 20 <a href="#mission20" id="mission20"></a>
 
-## Mission 21 <a name="mission21"></a>
+![Untitled](<images/Untitled 20.png>)
 
-![Untitled](images/Untitled%2021.png)
+***
 
----
+### Mission 21 <a href="#mission21" id="mission21"></a>
 
-## Mission 22 <a name="mission22"></a>
+![Untitled](<images/Untitled 21.png>)
 
-![Untitled](images/Untitled%2022.png)
+***
 
-- We navigated to the home directory but we didn’t find any flags, I have checked the current shell because of the prompt (`$`) using `echo $0` I found it `shell` so I switch it to bash I found the flag, so the flag is in `.bashrc`
+### Mission 22 <a href="#mission22" id="mission22"></a>
 
-![Untitled](images/Untitled%2023.png)
+![Untitled](<images/Untitled 22.png>)
 
----
+* We navigated to the home directory but we didn’t find any flags, I have checked the current shell because of the prompt (`$`) using `echo $0` I found it `shell` so I switch it to bash I found the flag, so the flag is in `.bashrc`
 
-## Mission 23 <a name="mission23"></a>
+![Untitled](<images/Untitled 23.png>)
 
-![Untitled](images/Untitled%2024.png)
+***
 
-- it’s python interactive shell, I think mission22 `.bashrc` file starts python whenever mission22 log in
+### Mission 23 <a href="#mission23" id="mission23"></a>
 
-![Untitled](images/Untitled%2025.png)
+![Untitled](<images/Untitled 24.png>)
 
-- to execute system commands in python we imported `system` function from `os` module
-- it’s very easy to use `system` function just: `system('command')`
-- then we navigated to our home directory to get the flag
+* it’s python interactive shell, I think mission22 `.bashrc` file starts python whenever mission22 log in
 
----
+![Untitled](<images/Untitled 25.png>)
 
-## Mission 24 <a name="mission24"></a>
+* to execute system commands in python we imported `system` function from `os` module
+* it’s very easy to use `system` function just: `system('command')`
+* then we navigated to our home directory to get the flag
 
-![Untitled](images/Untitled%2026.png)
+***
 
-![Untitled](images/Untitled%2027.png)
+### Mission 24 <a href="#mission24" id="mission24"></a>
 
-- I didn’t find the flag inside the home directory, so I guessed it was the md5 hash of the message but it’s not, so I started to enumerate the host I found mission24.com inside `/etc/hosts`. use `curl` or `wget` to get the flag
+![Untitled](<images/Untitled 26.png>)
 
----
+![Untitled](<images/Untitled 27.png>)
 
-## Mission 25 <a name="mission25"></a>
+* I didn’t find the flag inside the home directory, so I guessed it was the md5 hash of the message but it’s not, so I started to enumerate the host I found mission24.com inside `/etc/hosts`. use `curl` or `wget` to get the flag
 
-![Untitled](images/Untitled%2028.png)
+***
 
-- We can see bribe binary file Guide us to give him money, I searched for ‘mission’ in `.bashrc`, `.profile`, `.viminfo` but nothing found
+### Mission 25 <a href="#mission25" id="mission25"></a>
 
-![Untitled](images/Untitled%2029.png)
+![Untitled](<images/Untitled 28.png>)
 
-- we found the following in `.viminfo` file
-    
-    ![Untitled](images/Untitled%2030.png)
-    
-    - `.viminfo` content
-        
+* We can see bribe binary file Guide us to give him money, I searched for ‘mission’ in `.bashrc`, `.profile`, `.viminfo` but nothing found
+
+![Untitled](<images/Untitled 29.png>)
+
+*   we found the following in `.viminfo` file
+
+    <img src="images/Untitled 30.png" alt="Untitled" data-size="original">
+
+    *   `.viminfo` content
+
         ```
         # This viminfo file was generated by Vim 8.0.
         # You may edit it if you're careful!
-        
+
         # Viminfo version
         |1,4
-        
+
         # Value of 'encoding' when this file was written
         *encoding=utf-8
-        
+
         # hlsearch on (H) or off (h):
         ~h
         # Command Line History (newest to oldest):
         :wq
         |2,0,1610305351,,"wq"
-        
+
         # Search String History (newest to oldest):
-        
+
         # Expression History (newest to oldest):
-        
+
         # Input Line History (newest to oldest):
-        
+
         # Debug Line History (newest to oldest):
-        
+
         # Registers:
         "0      LINE    0
                 const char* p = getenv("pocket");
@@ -394,7 +389,7 @@ Just like the previous mission, we found hexadecimal encoded and tried to decode
         "9      LINE    0
                 {
         |3,0,9,1,1,0,1610305119,"{"
-        
+
         # File marks:
         '0  14  51  ~/bribe.c
         |4,48,14,51,1610305351,"~/bribe.c"
@@ -416,7 +411,7 @@ Just like the previous mission, we found hexadecimal encoded and tried to decode
         |4,56,16,13,1610305230,"~/bribe.c"
         '9  17  13  ~/bribe.c
         |4,57,17,13,1610305230,"~/bribe.c"
-        
+
         # Jumplist (newest first):
         -'  14  51  ~/bribe.c
         |4,39,14,51,1610305351,"~/bribe.c"
@@ -526,9 +521,9 @@ Just like the previous mission, we found hexadecimal encoded and tried to decode
         |4,39,1,0,1610304929,"~/bribe.c"
         -'  1  0  ~/bribe.c
         |4,39,1,0,1610304929,"~/bribe.c"
-        
+
         # History of marks within files (newest to oldest):
-        
+
         > ~/bribe.c
                 *       1610305350      0
                 "       14      51
@@ -552,236 +547,226 @@ Just like the previous mission, we found hexadecimal encoded and tried to decode
                 +       7       4
                 +       14      51
         ```
-        
-- bribe binary checks Environment variable called pocket to check the money, let’s assign this variable
+* bribe binary checks Environment variable called pocket to check the money, let’s assign this variable
 
-![Untitled](images/Untitled%2031.png)
+![Untitled](<images/Untitled 31.png>)
 
----
+***
 
-## Mission 26 <a name="mission26"></a>
+### Mission 26 <a href="#mission26" id="mission26"></a>
 
-![Untitled](images/Untitled%2032.png)
+![Untitled](<images/Untitled 32.png>)
 
-- PATH env was not assigned, so we assigned it using `export PATH=Value`
+* PATH env was not assigned, so we assigned it using `export PATH=Value`
 
----
+***
 
-## Mission 27 <a name="mission27"></a>
+### Mission 27 <a href="#mission27" id="mission27"></a>
 
-![Untitled](images/Untitled%2033.png)
+![Untitled](<images/Untitled 33.png>)
 
-![Untitled](images/Untitled%2034.png)
+![Untitled](<images/Untitled 34.png>)
 
----
+***
 
-## Mission 28 <a name="mission28"></a>
+### Mission 28 <a href="#mission28" id="mission28"></a>
 
-![Untitled](images/Untitled%2035.png)
+![Untitled](<images/Untitled 35.png>)
 
-- It’s gzip compressed data, we decompressed it using `gunzip <file>`, the output is image we used strings to print any printable characters in it.
+* It’s gzip compressed data, we decompressed it using `gunzip <file>`, the output is image we used strings to print any printable characters in it.
 
----
+***
 
-## Mission 29 <a name="mission29"></a>
+### Mission 29 <a href="#mission29" id="mission29"></a>
 
-![Untitled](images/Untitled%2036.png)
+![Untitled](<images/Untitled 36.png>)
 
-- very simple: the flag was reversed we used `rev` to reverse it back
+* very simple: the flag was reversed we used `rev` to reverse it back
 
----
+***
 
-## Mission 30 <a name="mission30"></a>
+### Mission 30 <a href="#mission30" id="mission30"></a>
 
-![Untitled](images/Untitled%2037.png)
+![Untitled](<images/Untitled 37.png>)
 
-- `.htpasswd` is **used to create and update the flat-files used to store usernames and password for basic authentication of HTTP users**.
+* `.htpasswd` is **used to create and update the flat-files used to store usernames and password for basic authentication of HTTP users**.
 
----
+***
 
-## viktor's Flag <a name="viktor"></a>
+### viktor's Flag <a href="#viktor" id="viktor"></a>
 
-![Untitled](images/Untitled%2038.png)
+![Untitled](<images/Untitled 38.png>)
 
-- It’s git repository we used `git log` to Show commit logs
+* It’s git repository we used `git log` to Show commit logs
 
----
+***
 
-# Task4 - Privilege Escalation
+## Task4 - Privilege Escalation
 
-![Untitled](images/Untitled%2039.png)
+![Untitled](<images/Untitled 39.png>)
 
 > su into viktor user using viktor's flag as password
-> 
 
----
+***
 
-## Dalia's flag  <a name="dalia"></a>
+### Dalia's flag <a href="#dalia" id="dalia"></a>
 
-![Untitled](images/Untitled%2040.png)
+![Untitled](<images/Untitled 40.png>)
 
-- first We checked our privileges using `sudo -l` but we have no permission to run `sudo` after enumerating `/etc/shadow` (check if it’s readable), `/etc/crontab` we found a corn job for Dalia `sleep30;/opt/scripts/[47.sh](http://47.sh)` and a cron job for root (overwrite 47.sh file and make viktor (the current user we use) the owner, let’s inject bash script to start a listener
-    
-    ![Untitled](images/Untitled%2041.png)
-    
-- We created a pipe then we started `netcat` listener redirecting the input from `f` and the output to `bash` which output redirected to `f`
-    
-    ![Untitled](images/Untitled%2042.png)
-    
-- Stabilizing the shell
-    
-    ![Untitled](images/Untitled%2043.png)
-    
-- Gotcha
-    
-    ![Untitled](images/Untitled%2044.png)
-    
-    ---
-    
-    - Another Easy way
-        
-        ![Untitled](images/Untitled%2045.png)
-        
+*   first We checked our privileges using `sudo -l` but we have no permission to run `sudo` after enumerating `/etc/shadow` (check if it’s readable), `/etc/crontab` we found a corn job for Dalia `sleep30;/opt/scripts/[47.sh](http://47.sh)` and a cron job for root (overwrite 47.sh file and make viktor (the current user we use) the owner, let’s inject bash script to start a listener
 
----
+    <img src="images/Untitled 41.png" alt="Untitled" data-size="original">
+*   We created a pipe then we started `netcat` listener redirecting the input from `f` and the output to `bash` which output redirected to `f`
 
-## Silvio’s flag <a name="silvio"></a>
+    <img src="images/Untitled 42.png" alt="Untitled" data-size="original">
+*   Stabilizing the shell
 
-![Untitled](images/Untitled%2046.png)
+    <img src="images/Untitled 43.png" alt="Untitled" data-size="original">
+*   Gotcha
 
-![Untitled](images/Untitled%2047.png)
+    <img src="images/Untitled 44.png" alt="Untitled" data-size="original">
 
-- [Check GTFOBins](https://gtfobins.github.io/gtfobins/zip/#sudo)
-- in our case we can run `zip` as Silvio with No Password, so we will add `-u silvio` option to `sudo` command
+    ***
 
-![Untitled](images/Untitled%2048.png)
+    *   Another Easy way
 
----
+        <img src="images/Untitled 45.png" alt="Untitled" data-size="original">
 
-## Reza’s flag <a name="reza"></a>
+***
 
-![Untitled](images/Untitled%2049.png)
+### Silvio’s flag <a href="#silvio" id="silvio"></a>
 
-- `SETENV` allows the user to **set an environment variable** while executing something
-- [GTFOBins](https://gtfobins.github.io/gtfobins/git/#sudo)
-    
-    ![Untitled](images/Untitled%2050.png)
-    
+![Untitled](<images/Untitled 46.png>)
 
----
+![Untitled](<images/Untitled 47.png>)
 
-## Jordan’s flag <a name="jordan"></a>
+* [Check GTFOBins](https://gtfobins.github.io/gtfobins/zip/#sudo)
+* in our case we can run `zip` as Silvio with No Password, so we will add `-u silvio` option to `sudo` command
 
-![Untitled](images/Untitled%2051.png)
+![Untitled](<images/Untitled 48.png>)
 
-![Untitled](images/Untitled%2052.png)
+***
 
-- Gun-Shop.py imports module called shop
-- We are going to use `PYTHONPATH` Hijacking
-    - What is `PYTHONPATH`
-        - `PYTHONPATH` is **an environment variable which you can set to add additional directories where python will look for modules and packages**.
-         For most installations, you should not set these variables since they are not needed for Python to run. Python knows where to find its standard library.
-    
-    ![Untitled](images/Untitled%2053.png)
-    
-    ![Untitled](images/Untitled%2054.png)
-    
+### Reza’s flag <a href="#reza" id="reza"></a>
 
----
+![Untitled](<images/Untitled 49.png>)
 
-## Ken’s flag <a name="ken"></a>
+* `SETENV` allows the user to **set an environment variable** while executing something
+*   [GTFOBins](https://gtfobins.github.io/gtfobins/git/#sudo)
 
-![Untitled](images/Untitled%2055.png)
+    <img src="images/Untitled 50.png" alt="Untitled" data-size="original">
 
-- [GTFOBins](https://gtfobins.github.io/gtfobins/less/#sudo)
-- `sudo -u ken less /etc/passwd`
-    
-    ![Untitled](images/Untitled%2056.png)
-    
-    ![Untitled](images/Untitled%2057.png)
-    
-    ![Untitled](images/Untitled%2058.png)
-    
+***
 
----
+### Jordan’s flag <a href="#jordan" id="jordan"></a>
 
-## Sean’s flag <a name="sean"></a>
+![Untitled](<images/Untitled 51.png>)
 
-![Untitled](images/Untitled%2059.png)
+![Untitled](<images/Untitled 52.png>)
 
-![Untitled](images/Untitled%2060.png)
+* Gun-Shop.py imports module called shop
+*   We are going to use `PYTHONPATH` Hijacking
+
+    * What is `PYTHONPATH`
+      * `PYTHONPATH` is **an environment variable which you can set to add additional directories where python will look for modules and packages**. For most installations, you should not set these variables since they are not needed for Python to run. Python knows where to find its standard library.
+
+    <img src="images/Untitled 53.png" alt="Untitled" data-size="original">
+
+    <img src="images/Untitled 54.png" alt="Untitled" data-size="original">
+
+***
+
+### Ken’s flag <a href="#ken" id="ken"></a>
+
+![Untitled](<images/Untitled 55.png>)
+
+* [GTFOBins](https://gtfobins.github.io/gtfobins/less/#sudo)
+*   `sudo -u ken less /etc/passwd`
+
+    <img src="images/Untitled 56.png" alt="Untitled" data-size="original">
+
+    <img src="images/Untitled 57.png" alt="Untitled" data-size="original">
+
+    <img src="images/Untitled 58.png" alt="Untitled" data-size="original">
+
+***
+
+### Sean’s flag <a href="#sean" id="sean"></a>
+
+![Untitled](<images/Untitled 59.png>)
+
+![Untitled](<images/Untitled 60.png>)
 
 ```bash
 sean@linuxagency:~$ grep 'sean{' -R /* 2>/dev/null
 /var/log/syslog.bak:Jan 12 02:58:58 ubuntu kernel: [    0.000000] ACPI: LAPIC_NMI (acpi_id[0x6d] high edge lint[0x1]) : sean{4c56****************************} **VGhlIHBhc3N3b3JkIG9mIHBlbmVsb3BlIGlzIHAzbmVsb3BlCg==**
 ```
 
----
+***
 
-## penelope’s flag <a name="penelope"></a>
+### penelope’s flag <a href="#penelope" id="penelope"></a>
 
-![Untitled](images/Untitled%2061.png)
+![Untitled](<images/Untitled 61.png>)
 
-![Untitled](images/Untitled%2062.png)
+![Untitled](<images/Untitled 62.png>)
 
----
+***
 
-## Maya’s flag <a name="maya"></a>
+### Maya’s flag <a href="#maya" id="maya"></a>
 
-![Untitled](images/Untitled%2063.png)
+![Untitled](<images/Untitled 63.png>)
 
-SUID: It is **special file permission for executable files**.
- This enables other users to run the file with the effective permissions of the file owner. But Instead of normal x which represents executable permissions.
+SUID: It is **special file permission for executable files**. This enables other users to run the file with the effective permissions of the file owner. But Instead of normal x which represents executable permissions.
 
-![Untitled](images/Untitled%2064.png)
+![Untitled](<images/Untitled 64.png>)
 
-- We can’t read `/home/maya/flag.txt`, but may can so we can run `base64` SUID file to encode `flag.txt` with Maya's privilege and then decode the result with `base64`
+* We can’t read `/home/maya/flag.txt`, but may can so we can run `base64` SUID file to encode `flag.txt` with Maya's privilege and then decode the result with `base64`
 
----
+***
 
-## robert’s flag <a name="robert"></a>
+### robert’s flag <a href="#robert" id="robert"></a>
 
-![Untitled](images/Untitled%2065.png)
+![Untitled](<images/Untitled 65.png>)
 
-- Let’s crack the ssh key passphrase, but we need to convert the key to an understandable format for john, we can do it using `ssh2john`
+* Let’s crack the ssh key passphrase, but we need to convert the key to an understandable format for john, we can do it using `ssh2john`
 
-![Untitled](images/Untitled%2066.png)
+![Untitled](<images/Untitled 66.png>)
 
----
+***
 
-## user.txt <a name="user.txt"></a>
+### user.txt <a href="#user.txt" id="user.txt"></a>
 
-![Untitled](images/Untitled%2067.png)
+![Untitled](<images/Untitled 67.png>)
 
-- Let’s use the ssh key with the Passphrase we cracked
+* Let’s use the ssh key with the Passphrase we cracked
 
-![Untitled](images/Untitled%2068.png)
+![Untitled](<images/Untitled 68.png>)
 
-![Untitled](images/Untitled%2069.png)
+![Untitled](<images/Untitled 69.png>)
 
-- Oh😀 It’s `CVE-2019-14287`, It’s very easy to exploit
-    
-    ![Untitled](images/Untitled%2070.png)
-    
-    - Just it😊
-- There is a great TryHackMe room explains this vulnerability [here](https://tryhackme.com/room/sudovulnsbypass)
+*   Oh😀 It’s `CVE-2019-14287`, It’s very easy to exploit
 
-![Untitled](images/Untitled%2071.png)
+    <img src="images/Untitled 70.png" alt="Untitled" data-size="original">
 
----
+    * Just it😊
+* There is a great TryHackMe room explains this vulnerability [here](https://tryhackme.com/room/sudovulnsbypass)
 
-## root.txt <a name="root.txt"></a>
+![Untitled](<images/Untitled 71.png>)
 
-![Untitled](images/Untitled%2072.png)
+***
 
-![Untitled](images/Untitled%2073.png)
+### root.txt <a href="#root.txt" id="root.txt"></a>
 
----
+![Untitled](<images/Untitled 72.png>)
 
-## I hope you enjoyed the write-up
+![Untitled](<images/Untitled 73.png>)
+
+***
+
+### I hope you enjoyed the write-up
+
 Thank you to [Xyan1d3](https://tryhackme.com/p/Xyan1d3) and [0z9e](https://tryhackme.com/p/0z09e) for this great room.
 
-
-- [Linkedin](https://www.linkedin.com/in/juba0x00/)
-- [Twitter](https://twitter.com/juba0x00/)
-- [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
+* [Linkedin](https://www.linkedin.com/in/juba0x00/)
+* [Twitter](https://twitter.com/juba0x00/)
+* [TryHackMe](https://tryhackme.com/p/Juba0x430x55)

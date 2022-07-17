@@ -1,6 +1,6 @@
 # Table of contents
 
-* [README](README.md)
+* [TryHackMe](README.md)
 * [Basic-Pentesting](Basic-Pentesting/README.md)
 * [Blue](Blue/README.md)
 * [Bounty-Hacker](Bounty-Hacker/README.md)

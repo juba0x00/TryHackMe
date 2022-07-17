@@ -1,6 +1,9 @@
-# README
+---
+cover: .gitbook/assets/2Lih3iq.jpg
+coverY: 0
+---
 
-## TryHackMe
+# TryHackMe
 
 TryHackMe CTFs write-ups
 

