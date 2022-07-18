@@ -33,7 +33,9 @@ TryHackMe CTFs write-ups
 
 ### Over The Wire - Bandit
 
-{% embed url="https://github.com/juba0x00/OverTheWire-Bandit-Writeup" %}
+{% content-ref url="https://app.gitbook.com/s/vodtXAW1SY1yUYVgUP9U/" %}
+[Bandit- OverTheWire](https://app.gitbook.com/s/vodtXAW1SY1yUYVgUP9U/)
+{% endcontent-ref %}
 
 ## Badges
 
