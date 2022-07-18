@@ -31,6 +31,10 @@ TryHackMe CTFs write-ups
 
 ### [Bounty Hacker](Bounty-Hacker/)
 
+### Over The Wire - Bandit
+
+{% embed url="https://github.com/juba0x00/OverTheWire-Bandit-Writeup" %}
+
 ## Badges
 
 ### [Windows Priv Esc](https://tryhackme.com/Juba0x430x55/badges/win-priv-esc)
