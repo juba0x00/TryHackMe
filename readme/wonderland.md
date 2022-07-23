@@ -15,9 +15,9 @@
 
 ***
 
-|        Room Image        |             Room Background            |
-| :----------------------: | :------------------------------------: |
-| ![](images/Untitled.png) | ![Background](<images/Untitled 1.png>) |
+|               Room Image               |                    Room Background                   |
+| :------------------------------------: | :--------------------------------------------------: |
+| ![](../Wonderland/images/Untitled.png) | ![Background](<../Wonderland/images/Untitled 1.png>) |
 
 * Table Of Contents
   * Information Gathering
@@ -59,33 +59,33 @@ export target=10.10.43.237
     * we found ports 22 and 80 open let’s navigate to the website while scanning all the ports with `nmap -Pn -vv -p- $target`
 *   the website:
 
-    <img src="images/Untitled 2.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 2.png" alt="Untitled" data-size="original">
 *   look for any interesting information on the site Source
 
-    <img src="images/Untitled 3.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 3.png" alt="Untitled" data-size="original">
 
     * nothing interesting here
 * I close it because the internet speed with really bad and Nmap full scan took too much time, but it seems that there is no more open ports
 *   Let’s do some fuzzing using `feroxbuster`
 
-    <img src="images/Untitled 4.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 4.png" alt="Untitled" data-size="original">
 * it seems that the directory is rabbit, like: /r/a/b/b/i/t
 
-![Untitled](<images/Untitled 5.png>)
+![Untitled](<../Wonderland/images/Untitled 5.png>)
 
-![Untitled](<images/Untitled 6.png>)
+![Untitled](<../Wonderland/images/Untitled 6.png>)
 
-![Untitled](<images/Untitled 7.png>)
+![Untitled](<../Wonderland/images/Untitled 7.png>)
 
-![Untitled](<images/Untitled 8.png>)
+![Untitled](<../Wonderland/images/Untitled 8.png>)
 
-![Untitled](<images/Untitled 9.png>)
+![Untitled](<../Wonderland/images/Untitled 9.png>)
 
-![Untitled](<images/Untitled 10.png>)
+![Untitled](<../Wonderland/images/Untitled 10.png>)
 
 *   After checking the sources of these pages, we found this interesting information in `/r/a/b/b/i/t` path
 
-    <img src="images/Untitled 11.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 11.png" alt="Untitled" data-size="original">
 
 ***
 
@@ -93,7 +93,7 @@ export target=10.10.43.237
 
 *   let’s check if this is a valid credential using ssh (we know that ssh is running from our nmap scan
 
-    <img src="images/Untitled 12.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 12.png" alt="Untitled" data-size="original">
 
     * Great 🙂
 
@@ -105,7 +105,7 @@ export target=10.10.43.237
 
 *   we can’t view root.txt content
 
-    <img src="images/Untitled 13.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 13.png" alt="Untitled" data-size="original">
 *   Let’s search for user.txt file first
 
     ```bash
@@ -114,7 +114,7 @@ export target=10.10.43.237
     ```
 * checking our privileges
 
-![Untitled](<images/Untitled 14.png>)
+![Untitled](<../Wonderland/images/Untitled 14.png>)
 
 * we can run `/usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py` as rabbit user
 * as we can see, we can’t edit the python script, but we can read it
@@ -267,17 +267,17 @@ for i in range(10):
 
 *   in the first line, we can see it imports `random` module, so we can do python module Hijacking by creating `random.py` file in the same directory using `touch random.py` command
 
-    <img src="images/Untitled 15.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 15.png" alt="Untitled" data-size="original">
 *   run the script to make sure it runs as rabbit
 
-    <img src="images/Untitled 16.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 16.png" alt="Untitled" data-size="original">
 
     * as we can notice the user running the script is rabbit
 *   let’s inject our malicious script
 
-    <img src="images/Untitled 17.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 17.png" alt="Untitled" data-size="original">
 
-    <img src="images/Untitled 18.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 18.png" alt="Untitled" data-size="original">
 
 ***
 
@@ -285,14 +285,14 @@ for i in range(10):
 
 *   discovering rabbit home directory
 
-    <img src="images/Untitled 19.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 19.png" alt="Untitled" data-size="original">
 * it’s SUID binary file running with root privileges
 *   strings command is not installed, so we will copy teaParty to our system (strings: print the sequences of printable characters in files)
 
-    <img src="images/Untitled 20.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 20.png" alt="Untitled" data-size="original">
 *   transferring teaParty using netcat
 
-    <img src="images/Untitled 21.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 21.png" alt="Untitled" data-size="original">
 *   teaParty content:
 
     ```
@@ -385,16 +385,16 @@ for i in range(10):
 * we noticed this line `/bin/echo -n 'Probably by ' && **date** --date='next hour' -R` he is calling `date` without specifying the full path, so let’s create an executable date file and add it’s directory to the $PATH env
 *   write a script to check our plan
 
-    <img src="images/Untitled 22.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 22.png" alt="Untitled" data-size="original">
 *   give execution permission for all users
 
-    <img src="images/Untitled 23.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 23.png" alt="Untitled" data-size="original">
 *   run teaParty
 
-    <img src="images/Untitled 24.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 24.png" alt="Untitled" data-size="original">
 *   as we can see we are hatter, so let’s inject our malicious script it’s just adding (`/bin/bash`) 😊 to get the shell
 
-    <img src="images/Untitled 25.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 25.png" alt="Untitled" data-size="original">
 
 ***
 
@@ -402,12 +402,12 @@ for i in range(10):
 
 *   discovering hatter home directory
 
-    <img src="images/Untitled 26.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 26.png" alt="Untitled" data-size="original">
 *   we found a password but I don’t know if it’s the root password or hatter’s password, so let’s try it
 
-    <img src="images/Untitled 27.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 27.png" alt="Untitled" data-size="original">
 
-    <img src="images/Untitled 28.png" alt="Untitled" data-size="original">
+    <img src="../Wonderland/images/Untitled 28.png" alt="Untitled" data-size="original">
 
     * it’s hatter’s password
 * After some manual enumeration, I prefer to speed the process by using an automation tool like [Linenum](https://github.com/rebootuser/LinEnum)
@@ -1565,7 +1565,7 @@ drwxr-xr-x 12 root root 4096 May 25  2020 ..
 * we noticed this line ‘`/usr/bin/perl = **cap_setuid+ep`’\*\* it means that `/usr/bin/perl` can set the user ID, so we can use perl to set it to zero (root)
 * if you are not familiar with perl, you can see this exploit in [GTFoBins](https://gtfobins.github.io/gtfobins/perl/#capabilities)
 
-![Untitled](<images/Untitled 29.png>)
+![Untitled](<../Wonderland/images/Untitled 29.png>)
 
 * great, we are root (Notice the prompt is #)
 
@@ -1575,13 +1575,13 @@ drwxr-xr-x 12 root root 4096 May 25  2020 ..
 
 ### root flag
 
-![Untitled](<images/Untitled 30.png>)
+![Untitled](<../Wonderland/images/Untitled 30.png>)
 
 ***
 
 ### user flag
 
-![Untitled](<images/Untitled 31.png>)
+![Untitled](<../Wonderland/images/Untitled 31.png>)
 
 ***
 

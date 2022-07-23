@@ -1,22 +1,22 @@
 # Blue
 
-----
+## Blue
 
-# Info
+***
 
-| Name         |   Blue                                                                                              | 
-| ------       | -----------------                                                                                   |
-| Room link    | https://tryhackme.com/room/blue                                                                     |  
-| Difficulty   | Easy                                                                                                |
-| Created by   | [ben](https://tryhackme.com/p/ben) & [DarkStar7471](https://tryhackme.com/p/DarkStar7471)           |
-| solving date | March 27th 2022                                                                                     |
-----
+## Info
 
+| Name         | Blue                                                                                      |
+| ------------ | ----------------------------------------------------------------------------------------- |
+| Room link    | https://tryhackme.com/room/blue                                                           |
+| Difficulty   | Easy                                                                                      |
+| Created by   | [ben](https://tryhackme.com/p/ben) & [DarkStar7471](https://tryhackme.com/p/DarkStar7471) |
+| solving date | March 27th 2022                                                                           |
+| ----         |                                                                                           |
 
+### Task 1: Recon
 
-## Task 1: Recon
-
-- Starting nmap scan
+* Starting nmap scan
 
 ```
 └─# nmap --script vuln $target     
@@ -83,24 +83,13 @@ Host script results:
 Nmap done: 1 IP address (1 host up) scanned in 101.60 seconds
 ```
 
-<aside>
-💡 Question 2: 
-Answer: 3
-ports: 135, 139, 445
+💡 Question 2: Answer: 3 ports: 135, 139, 445💡 Question 3: Answer: \*\*ms17-010\*\*
 
-</aside>
+***
 
-<aside>
-💡 Question 3:
-Answer: **ms17-010**
+### Task 2: Gain Access
 
-</aside>
-
----
-
-## Task 2: Gain Access
-
-- Searching for exploit using Metasploit framework
+* Searching for exploit using Metasploit framework
 
 ```
 msf6 > search ms17-010
@@ -117,75 +106,68 @@ Matching Modules
    4  exploit/windows/smb/smb_doublepulsar_rce  2017-04-14       great    Yes    SMB DOUBLEPULSAR Remote Code Execution
 ```
 
-- Show the exploit options
-    
-    ![Untitled](images/Untitled.png)
-    
-- Set Required options
-    
-    ![Untitled](images/Untitled%201.png)
-    
-- Start the exploit
-    
-    ![Untitled](images/Untitled%202.png)
-    
-    ---
-    
+*   Show the exploit options
 
-## Escalating privileges :
+    <img src="../Blue/images/Untitled.png" alt="Untitled" data-size="original">
+*   Set Required options
 
-- post exploitation → getting meterpreter shell
-    
+    <img src="../Blue/images/Untitled 1.png" alt="Untitled" data-size="original">
+*   Start the exploit
+
+    <img src="../Blue/images/Untitled 2.png" alt="Untitled" data-size="original">
+
+    ***
+
+### Escalating privileges :
+
+*   post exploitation → getting meterpreter shell
+
     `**use post/multi/manage/shell_to_meterpreter**`
-    
-    ![Untitled](images/Untitled%203.png)
-    
-- Let's check all the sessions we have now
-    
-    ![Untitled](images/Untitled%204.png)
-    
-- Great, We Have Meterpreter shell
-- list all the processes to migrate to another process
-    
-    ![Untitled](images/Untitled%205.png)
-    
-    - it seems we are NT AUTHORITY\SYSTEM so  we don’t have to migrate to another process
 
----
+    <img src="../Blue/images/Untitled 3.png" alt="Untitled" data-size="original">
+*   Let's check all the sessions we have now
 
-## Cracking:
+    <img src="../Blue/images/Untitled 4.png" alt="Untitled" data-size="original">
+* Great, We Have Meterpreter shell
+*   list all the processes to migrate to another process
 
-- Dump users passwords
-    
-    ![Untitled](images/Untitled%206.png)
-    
-    - **Jon** is a non-Default user
-    - Crack his password using john or hashes.com
-- the first flag in the root directory → **C:\   we will type `cd C:\\`  because Meterpreter does some handling will the backslash**
-    
-    ![Untitled](images/Untitled%207.png)
-    
-    - Great, That’s the first flag
-- The second flag at the location where passwords are stored
-- it is **C:\Windows\System32\config**
-    
-    ![Untitled](images/Untitled%208.png)
-    
-    - Gotcha!
-- the third flag →  “*Administrators usually have pretty interesting things saved.*”  I think it is in Jon's home folder
-    - After Searching it’s in the Documents folder
-    
-    ![Untitled](images/Untitled%209.png)
-    
+    <img src="../Blue/images/Untitled 5.png" alt="Untitled" data-size="original">
 
----
+    * it seems we are NT AUTHORITY\SYSTEM so we don’t have to migrate to another process
 
+***
 
-[Blue Badge](https://tryhackme.com/Juba0x430x55/badges/blue)
-![my Blue Bade](images/mybadge)
-## I hope you enjoyed the write-up
+### Cracking:
 
+*   Dump users passwords
 
-- [Linkedin](https://www.linkedin.com/in/juba0x00/)
-- [Twitter](https://twitter.com/juba0x00/)
-- [TryHackMe](https://tryhackme.com/p/Juba0x430x55)
+    <img src="../Blue/images/Untitled 6.png" alt="Untitled" data-size="original">
+
+    * **Jon** is a non-Default user
+    * Crack his password using john or hashes.com
+*   the first flag in the root directory → **C:\ we will type `cd C:\\` because Meterpreter does some handling will the backslash**
+
+    <img src="../Blue/images/Untitled 7.png" alt="Untitled" data-size="original">
+
+    * Great, That’s the first flag
+* The second flag at the location where passwords are stored
+*   it is **C:\Windows\System32\config**
+
+    <img src="../Blue/images/Untitled 8.png" alt="Untitled" data-size="original">
+
+    * Gotcha!
+*   the third flag → “_Administrators usually have pretty interesting things saved._” I think it is in Jon's home folder
+
+    * After Searching it’s in the Documents folder
+
+    <img src="../Blue/images/Untitled 9.png" alt="Untitled" data-size="original">
+
+***
+
+[Blue Badge](https://tryhackme.com/Juba0x430x55/badges/blue) ![my Blue Bade](../Blue/images/mybadge)
+
+### I hope you enjoyed the write-up
+
+* [Linkedin](https://www.linkedin.com/in/juba0x00/)
+* [Twitter](https://twitter.com/juba0x00/)
+* [TryHackMe](https://tryhackme.com/p/Juba0x430x55)

@@ -16,16 +16,16 @@
 ***
 
 * Table Of Contents
-  * [Enumeration](./#user-content-enum)
-    * [nmap scan](./#user-content-nmap)
-    * [apache server](./#user-content-apache)
-    * [Discovering FTP](./#user-content-ftp)
-    * [Brute-forcing](./#user-content-bruteforce)
-  * [Gaining Access](./#gaining-access--)
-    * [user.txt](./#user-content-user.txt)
-  * [Privilege Escalation](./#privilege-escalation-)
-    * [list user's privileges](./#user-content-user-priv)
-    * [root.txt](./#user-content-root.txt)
+  * [Enumeration](bounty-hacker.md#user-content-enum)
+    * [nmap scan](bounty-hacker.md#user-content-nmap)
+    * [apache server](bounty-hacker.md#user-content-apache)
+    * [Discovering FTP](bounty-hacker.md#user-content-ftp)
+    * [Brute-forcing](bounty-hacker.md#user-content-bruteforce)
+  * [Gaining Access](bounty-hacker.md#gaining-access--)
+    * [user.txt](bounty-hacker.md#user-content-user.txt)
+  * [Privilege Escalation](bounty-hacker.md#privilege-escalation-)
+    * [list user's privileges](bounty-hacker.md#user-content-user-priv)
+    * [root.txt](bounty-hacker.md#user-content-root.txt)
 
 ### Enumeration <a href="#enum" id="enum"></a>
 
@@ -71,7 +71,7 @@ Nmap done: 1 IP address (1 host up) scanned in 48.97 seconds
 
 #### Discovering the web server <a href="#apache" id="apache"></a>
 
-![Web page](images/web-page)
+![Web page](../Bounty-Hacker/images/web-page)
 
 * Fuzzing the website
 

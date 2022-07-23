@@ -15,21 +15,21 @@ TryHackMe CTFs write-ups
 
 ## Write-ups
 
-### [LinuxAgency](Linux-Agency/)
+### [LinuxAgency](readme/linux-agency.md)
 
-### [Wonderland](Wonderland/)
+### [Wonderland](readme/wonderland.md)
 
-### [Basic Pentesting](Basic-Pentesting/)
+### [Basic Pentesting](readme/basic-pentesting.md)
 
-### [Blue](Blue/)
+### [Blue](readme/blue.md)
 
-### [Kenobi](Kenobi/)
+### [Kenobi](readme/kenobi.md)
 
-### [LazyAdmin](LazyAdmin/)
+### [LazyAdmin](readme/lazyadmin.md)
 
-### [Vulnversity](Vulnversity/)
+### [Vulnversity](readme/vulnversity.md)
 
-### [Bounty Hacker](Bounty-Hacker/)
+### [Bounty Hacker](readme/bounty-hacker.md)
 
 ### Over The Wire - Bandit
 

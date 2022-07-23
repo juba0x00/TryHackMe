@@ -51,7 +51,7 @@
 * 22 and 80 are open
 *   Let’s Navigate to the website, it’s apache2 webserver
 
-    <img src="images/Untitled.png" alt="Untitled" data-size="original">
+    <img src="../LazyAdmin/images/Untitled.png" alt="Untitled" data-size="original">
 
 ***
 
@@ -61,17 +61,17 @@
 
     * there is no robots.txt file,
 
-    <img src="images/Untitled 1.png" alt="Untitled" data-size="original">
+    <img src="../LazyAdmin/images/Untitled 1.png" alt="Untitled" data-size="original">
 * let’s fuzz this website using ffuf
 * `ffuf -w /mnt/hgfs/Pentesting\ Share/SecLists-master/Discovery/Web-Content/directory-list-2.3-small.txt -u http://$target/FUZZ`
   *   /content found, let’s view this page
 
-      <img src="images/Untitled 2.png" alt="Untitled" data-size="original">
+      <img src="../LazyAdmin/images/Untitled 2.png" alt="Untitled" data-size="original">
 
       * it’s running SweetRice CMS
 *   searching for any exploit with `searchsploit`
 
-    <img src="images/Untitled 3.png" alt="Untitled" data-size="original">
+    <img src="../LazyAdmin/images/Untitled 3.png" alt="Untitled" data-size="original">
 
     `SweetRice 1.5.1 - Backup Disclosure | php/webapps/40718.txt`
 
@@ -101,7 +101,7 @@
 * images, js, inc, as, themes, attachment found
 *   let’s try the exploit with /content/inc directory
 
-    <img src="images/Untitled 4.png" alt="Untitled" data-size="original">
+    <img src="../LazyAdmin/images/Untitled 4.png" alt="Untitled" data-size="original">
 * download mysql backup in [http://10.10.244.50/content/inc/mysql\_backup/mysql\_bakup\_20191129023059-1.5.1.sql](http://10.10.244.50/content/inc/mysql\_backup/mysql\_bakup\_20191129023059-1.5.1.sql)
 *   backup content
 
@@ -219,18 +219,18 @@
 
 <summary>Gaining Access (Click Me)</summary>
 
-<img src="images/Untitled 5.png" alt="Untitled" data-size="original">
+<img src="../LazyAdmin/images/Untitled 5.png" alt="Untitled" data-size="original">
 
 * great, now we have the password for user ‘manager’ and he is admin, let’s navigate to the discovered directories to find admin login page
 * images, js, inc, as, themes, attachment, we can find the login page in /content/as
 *   try the username and the password we found
 
-    <img src="images/Untitled 6.png" alt="Untitled" data-size="original">
+    <img src="../LazyAdmin/images/Untitled 6.png" alt="Untitled" data-size="original">
 
-    <img src="images/Untitled 7.png" alt="Untitled" data-size="original">
-*   we can see there is ads section and there is ads directory in /content/inc (remember from [here](images.md)), so let’s create an ad with our php reverse shell
+    <img src="../LazyAdmin/images/Untitled 7.png" alt="Untitled" data-size="original">
+*   we can see there is ads section and there is ads directory in /content/inc (remember from [here](../LazyAdmin/images.md)), so let’s create an ad with our php reverse shell
 
-    <img src="images/Untitled 8.png" alt="Untitled" data-size="original">
+    <img src="../LazyAdmin/images/Untitled 8.png" alt="Untitled" data-size="original">
 * now we can run the code by navigating to http:///content/inc/ad/juba.php
 
 ***
